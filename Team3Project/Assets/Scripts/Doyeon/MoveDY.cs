@@ -5,6 +5,7 @@ using UnityEngine;
 public class MoveDY : MonoBehaviour
 {
     float MoveDYX, MoveDYY;
+    public VirtualJoystick joystick;
     public float speed = 5.0f;
     Rigidbody2D rb;
     
@@ -15,8 +16,8 @@ public class MoveDY : MonoBehaviour
 
     void Update()
     {
-        MoveDYX = Input.GetAxis("Horizontal");
-        MoveDYY = Input.GetAxis("Vertical");
+        MoveDYX = joystick.inputDirection.x;
+        MoveDYY = joystick.inputDirection.y;
     }
 
     private void FixedUpdate()

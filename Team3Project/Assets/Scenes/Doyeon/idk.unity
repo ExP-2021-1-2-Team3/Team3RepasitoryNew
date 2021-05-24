@@ -2111,6 +2111,7 @@ GameObject:
   - component: {fileID: 689318241}
   - component: {fileID: 689318244}
   - component: {fileID: 689318243}
+  - component: {fileID: 689318242}
   m_Layer: 5
   m_Name: Joystick
   m_TagString: Untagged
@@ -2138,6 +2139,21 @@ RectTransform:
   m_AnchoredPosition: {x: 755, y: -353}
   m_SizeDelta: {x: 279.88, y: 279.88}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &689318242
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 689318240}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0cffbc42fb8d3545b61959ffef51bba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lever: {fileID: 1975873262}
+  leverRange: 90
+  inputDirection: {x: 0, y: 0}
 --- !u!114 &689318243
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3734,6 +3750,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7eae0450c0cbd74996cd9c9128ed612, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  joystick: {fileID: 689318242}
   speed: 5
 --- !u!50 &1221640277
 Rigidbody2D:
@@ -5553,7 +5570,7 @@ GameObject:
   - component: {fileID: 1975873264}
   - component: {fileID: 1975873263}
   m_Layer: 5
-  m_Name: Handle
+  m_Name: Lever
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
