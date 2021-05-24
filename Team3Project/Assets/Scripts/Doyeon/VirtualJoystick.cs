@@ -13,7 +13,6 @@ public class VirtualJoystick : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     private float leverRange;
     public Vector2 inputDirection;
     private bool isInput;
-    Vector2 mouseMiddle;
 
     private void Awake()
     {
@@ -34,13 +33,12 @@ public class VirtualJoystick : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     {
         lever.anchoredPosition = Vector2.zero;
         isInput = false;
-        inputDirection = Vector2.zero;
 
     }
 
     private void ControlJoystickLever(PointerEventData eventData)
     {
-        var inputPos = eventData.position - rectTransform.anchoredPosition - mouseMiddle;
+        var inputPos = (Vector2)Input.mousePosition - rectTransform.anchoredPosition;
         var inputVector = inputPos.magnitude < leverRange ? inputPos : inputPos.normalized * leverRange;
         lever.anchoredPosition = inputVector;
         inputDirection = inputVector / leverRange;
