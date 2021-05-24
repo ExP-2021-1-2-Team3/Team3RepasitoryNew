@@ -18,6 +18,7 @@ public class VirtualJoystick : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     private void Awake()
     {
         rectTransform = GetComponent<RectTransform>();
+        mouseMiddle = new Vector2(1920 / 2, 1080 / 2);
     }
     public void OnBeginDrag(PointerEventData eventData)
     {
