@@ -31,10 +31,8 @@ public class LetterHS : MonoBehaviour
     //이걸 이용하면 사용자가 글자를 클릭했는지 알 수 있음.
     void OnMouseDown()
     {
-        if(LetterUiManagerHS.GetInstance().InputChar(this_letter)){
-            //TODO : 이거 뭔가 바뀌어야해...
-            gameObject.SetActive(false);
-        }
+        LetterUiManagerHS.GetInstance().InputChar(this_letter);
+        gameObject.SetActive(false);
     }
 
     //플레이어가 볼 수 없는 범위로 나가버렸는가?

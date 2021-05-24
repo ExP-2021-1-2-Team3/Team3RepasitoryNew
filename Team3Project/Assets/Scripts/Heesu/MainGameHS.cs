@@ -68,6 +68,7 @@ public class MainGameHS : MonoBehaviour
                 default:
                     break;
             }
+            
             if(nextGameIndex >= 3){
                 Debug.Log("GAME END");
                 isGameOver = true;
@@ -88,7 +89,7 @@ public class MainGameHS : MonoBehaviour
 
     //현재 진행중인 게임이 끝났으면 다음 게임으로
     void Update(){
-        if(LetterUiManagerHS.GetInstance().IsCurrentWordIsOver()){
+        if(LetterUiManagerHS.GetInstance().IsCurrentWordIsCorrect()){
             LoadNextGame();
         }
     }

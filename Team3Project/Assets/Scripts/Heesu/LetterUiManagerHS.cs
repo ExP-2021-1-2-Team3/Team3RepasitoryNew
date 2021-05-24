@@ -12,8 +12,8 @@ public class LetterUiManagerHS : MonoBehaviour
     [SerializeField] private PersonHS person;
     //일단 테스트를 위해서 BASEBALL을 넣어 놓음
     private string currentWord = "BASEBALL";
-    private int correctIndex;
-    private bool isUIupdateNeeded = false;
+    private int correctIndex, inputIndex;
+    private bool isUIupdateNeeded = false, isResetNeeded = false;
 
     private List<LetterUiHS> letterUIList;
 
@@ -27,27 +27,30 @@ public class LetterUiManagerHS : MonoBehaviour
         }
     }
 
-    public bool IsCurrentWordIsOver(){
+    public bool IsCurrentWordInputOver(){
+        return currentWord.Length <= inputIndex;
+    }
+
+    public bool IsCurrentWordIsCorrect(){
         return currentWord.Length <= correctIndex;
     }
 
-    public bool InputChar(char input_char)
+    public void InputChar(char input_char)
     {
-        //단어의 마지막 자를 맞추어서 페이딩 처리중(아무런 입력도 받지 않음)
+        //단어의 마지막 자가 페이딩 처리중(아무런 입력도 받지 않음)
         if(letterUIList[currentWord.Length - 1].IsFading())
-            return false;
+            return;
 
+        letterUIList[inputIndex].Input(input_char);
         //정답을 맞춤.
-        if(currentWord[correctIndex] == input_char){
-            Debug.Log(input_char);
-            letterUIList[correctIndex].Correct();
+        if(currentWord[inputIndex] == input_char){
             correctIndex += 1;
             person.Good();
-            return true;
-        } else {
+        } //정답을 못 맞춤.
+        else { 
             person.Angry();
-            return false;
         }
+        inputIndex += 1;
     }
 
     public bool SetGameString(string setString){
@@ -58,20 +61,23 @@ public class LetterUiManagerHS : MonoBehaviour
         }
         
         correctIndex = 0;
+        inputIndex = 0;
         currentWord = setString;
         isUIupdateNeeded = true;
 
         return true;
     }
 
+    //SetGameString의 이후, 혹은 틀렸을때 InputChar에서 다이렉트로 불린다.
     //굳이 플래그를 세워서 글자들을 나중에 업데이트 하는 이유는 처음 scene로딩을 하는 중에는
     //letterUIList에 아무것도 들어있지 않아 제대로된 업데이트가 불가능하기 때문.
     //적어도 Start가 불린 이후에야 UIList업데이트를 통해서 플레이어에게 보여줄 수 있다.
-    void UpdateUiObjects(){
+    void UpdateUiObjects(){        
         for(int i = 0; i < letterUIList.Count; i++){
             if(i < currentWord.Length){
                 letterUIList[i].SetPositionAndChar(i, currentWord.Length, currentWord[i]);
                 letterUIList[i].gameObject.SetActive(true);
+                letterUIList[i].Reset();
             } else {
                 letterUIList[i].gameObject.SetActive(false);
             }
@@ -85,6 +91,7 @@ public class LetterUiManagerHS : MonoBehaviour
             instance = this;
         
         correctIndex = 0;
+        inputIndex = 0;
         letterUIList = new List<LetterUiHS>();
 
         Transform canvas = GameObject.FindGameObjectWithTag("CanvasHS").transform;
@@ -99,6 +106,10 @@ public class LetterUiManagerHS : MonoBehaviour
     {
         if(isUIupdateNeeded)
             UpdateUiObjects();
+        //정답이 아니다. MainGameHS에서 부르는 형태를 비슷하게 이용함.
+        if(IsCurrentWordInputOver() && !IsCurrentWordIsCorrect()){
+            SetGameString(currentWord);
+        }
     }
 
     public static LetterUiManagerHS GetInstance()
