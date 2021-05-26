@@ -90,6 +90,9 @@ public class CloseBtn : MonoBehaviour
     }
     public void OnClickClock()
     {
+        //»óÈÆÄÚµå~
+        LoadManagerSH.singleTon.GameEnd();
+
         Debug.Log("Àá¿¡¼­ ±ú¾î³³´Ï´Ù...");
     }
     public void OnClickInvenClose()

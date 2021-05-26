@@ -47,8 +47,12 @@ public class MainGameHS : MonoBehaviour
     }
 
     void LoadNextGame(){
-        if(isGameOver) //게임이 끝났으면 더이상의 게임을 로드하지 않는다.
+        if (isGameOver)
+        {
+           
             return;
+        }//게임이 끝났으면 더이상의 게임을 로드하지 않는다.
+            
         
         if(LetterUiManagerHS.GetInstance().SetGameString(game[nextGameIndex])){
             //각 게임이 끝나서 새롭게 게임 스트링을 지정했을 때, 뒤의 이미지들 역시 생기게 한다.
@@ -71,6 +75,7 @@ public class MainGameHS : MonoBehaviour
             
             if(nextGameIndex >= 3){
                 Debug.Log("GAME END");
+                LoadManagerSH.singleTon.GameEnd();
                 isGameOver = true;
             } else {
                 nextGameIndex += 1;
