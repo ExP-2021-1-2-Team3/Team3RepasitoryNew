@@ -33,6 +33,7 @@ public class MainGameHS : MonoBehaviour
         letterList = new List<LetterHS>(); //글자들 떨어지는거 오브젝트 풀링
         background = gameObject.GetComponent<Image>(); //배경화면 전환
         nextSpwanIndex = 0; //리스트 순회용
+        nextActionTime = Time.time;
         nextGameIndex = 0; //BEAR, BOOK, ALARM용
         isGameOver = false;
 
@@ -48,10 +49,9 @@ public class MainGameHS : MonoBehaviour
 
     void LoadNextGame(){
         if (isGameOver)
-        {
-           
+        {  //게임이 끝났으면 더이상의 게임을 로드하지 않는다.
             return;
-        }//게임이 끝났으면 더이상의 게임을 로드하지 않는다.
+        }   
             
         
         if(LetterUiManagerHS.GetInstance().SetGameString(game[nextGameIndex])){
@@ -75,6 +75,7 @@ public class MainGameHS : MonoBehaviour
             
             if(nextGameIndex >= 3){
                 Debug.Log("GAME END");
+                All_Stop();
                 LoadManagerSH.singleTon.GameEnd();
                 isGameOver = true;
             } else {
@@ -83,12 +84,14 @@ public class MainGameHS : MonoBehaviour
         }   
     }
 
-    //마지막 SceneLoad, 주인공이 모든 글자를 맞추고 알람시계를 눌렀다.
-    //여기가 클리어 조건입니다. SceneManager.LoadScene("MainRoom")
-    //이곳에다가 씬 넘어가는 코드 짜주시면 됩니다.
-    public void OnAlarmClockClick(){
-        if(isGameOver){
-            SceneManager.LoadScene("MainRoom");
+    //THE WORLD
+    void All_Stop(){
+        foreach(LetterHS letter in letterList){
+            if(letter.isActiveAndEnabled){
+                Rigidbody2D rigid = letter.GetComponent<Rigidbody2D>();
+                rigid.gravityScale = 0;
+                rigid.velocity = Vector3.zero;
+            }
         }
     }
 

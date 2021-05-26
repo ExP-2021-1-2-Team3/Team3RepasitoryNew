@@ -9,24 +9,24 @@ public class LetterUiHS : MonoBehaviour
 
     [SerializeField] private int lengthOfThisObject;
     [SerializeField] private int gap;
-    [SerializeField] private int height;
 
     private Text childText;
     private bool fading;
     private bool will_input, will_reset;
     private char will_input_char;
 
-    int getRectXPosition(int index, int max){
-        return (int)((lengthOfThisObject + gap) * (index + (3.5f - max / 2.0f)));
+    int getRectXPosition(int index, int currMaxLength){
+        return (int)((lengthOfThisObject + gap) * (index + (5 - currMaxLength) / 2.0f));
     }
 
-    public void SetPositionAndChar(int index, int max, char this_letter){
+    public void ResetUi(int index, int currMaxLength, RectTransform parent){
         Image image = GetComponent<Image>();
         RectTransform rectTransform = GetComponent<RectTransform>();
-        rectTransform.anchoredPosition = new Vector3(getRectXPosition(index, max), height, 0);
+        rectTransform.anchoredPosition = new Vector3(
+            parent.anchoredPosition.x - parent.rect.width * 0.5f + getRectXPosition(index, currMaxLength) - 55, 
+            parent.anchoredPosition.y - 20, 0);
         if(childText == null)
             childText = transform.GetChild(0).GetComponent<Text>();
-        childText.text = this_letter.ToString();
         childText.color = new Color(0, 0, 0, 0);
         image.color = new Color(1, 1, 1, 0);
     }
@@ -42,7 +42,7 @@ public class LetterUiHS : MonoBehaviour
         if(will_input)
             Input(will_input_char);
         if(will_reset)
-            Reset();
+            AnimateReset();
     }
 
     //글자가 맞았을 때 코루틴 불러주는 함수
@@ -57,7 +57,7 @@ public class LetterUiHS : MonoBehaviour
         }
     }
 
-    public void Reset(){
+    public void AnimateReset(){
         if(fading){
             will_reset = true;
         } 

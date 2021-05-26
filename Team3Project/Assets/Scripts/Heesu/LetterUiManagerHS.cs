@@ -13,19 +13,9 @@ public class LetterUiManagerHS : MonoBehaviour
     //일단 테스트를 위해서 BASEBALL을 넣어 놓음
     private string currentWord = "BASEBALL";
     private int correctIndex, inputIndex;
-    private bool isUIupdateNeeded = false, isResetNeeded = false;
+    private bool isUIupdateNeeded = false;
 
     private List<LetterUiHS> letterUIList;
-
-    void Awake()
-    {
-        if(instance == null){
-            instance = this;
-            DontDestroyOnLoad(gameObject);
-        } else {
-            Destroy(instance);
-        }
-    }
 
     public bool IsCurrentWordInputOver(){
         return currentWord.Length <= inputIndex;
@@ -75,9 +65,9 @@ public class LetterUiManagerHS : MonoBehaviour
     void UpdateUiObjects(){        
         for(int i = 0; i < letterUIList.Count; i++){
             if(i < currentWord.Length){
-                letterUIList[i].SetPositionAndChar(i, currentWord.Length, currentWord[i]);
+                letterUIList[i].ResetUi(i, currentWord.Length, gameObject.GetComponent<RectTransform>());
                 letterUIList[i].gameObject.SetActive(true);
-                letterUIList[i].Reset();
+                letterUIList[i].AnimateReset();
             } else {
                 letterUIList[i].gameObject.SetActive(false);
             }
@@ -87,7 +77,7 @@ public class LetterUiManagerHS : MonoBehaviour
 
     void Start()
     {
-        if(instance != null)
+        if(instance == null)
             instance = this;
         
         correctIndex = 0;
@@ -115,15 +105,16 @@ public class LetterUiManagerHS : MonoBehaviour
     public static LetterUiManagerHS GetInstance()
     {
         if(instance == null){
-            Debug.Log("Reload After Scene Transition");
-            instance = new LetterUiManagerHS();
+            Debug.Log("여기서 이게 불리면 안됩니다.");
+            //instance = new LetterUiManagerHS();
+            return null;
         }
         return instance;
     }
 
     private static LetterUiManagerHS instance;
 
-    private LetterUiManagerHS()
-    {
+    private LetterUiManagerHS(){
+        instance = this;
     }
 }
