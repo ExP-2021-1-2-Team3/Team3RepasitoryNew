@@ -8,7 +8,9 @@ public class ObsSpawner : MonoBehaviour
     public float maxRate = 10f;
     public float minRate = 5f;
     public PhaseManager phaseManager;
-    
+    public int rotateSpeed;
+
+
 
     private float rate;
     private float timeAfterSpawn;

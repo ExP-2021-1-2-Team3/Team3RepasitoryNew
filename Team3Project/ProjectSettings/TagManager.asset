@@ -7,17 +7,18 @@ TagManager:
   - CanvasHS
   - Thorns
   - Curledups
+  - Obs
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - Player
+  - 
   - Water
   - UI
   - 
-  - Platform
-  - RealUIs
   - 
+  - RealUIs
+  - Character
   - 
   - 
   - 
