@@ -42,7 +42,7 @@ public class LoadManagerSH : MonoBehaviour
             PlayerPrefs.Save();
         }
         //nextStage = PlayerPrefs.GetInt("Stage");
-        nextStage = 5;
+        nextStage = 1;
         StartCoroutine(GameStartCor(false));
 
     }
