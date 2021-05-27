@@ -42,13 +42,8 @@ public class LoadManagerSH : MonoBehaviour
             PlayerPrefs.Save();
         }
         //nextStage = PlayerPrefs.GetInt("Stage");
-        nextStage = 4;
+        nextStage = 5;
         StartCoroutine(GameStartCor(false));
-
-    }
-
-    void MakeGlitch()
-    {
 
     }
 
@@ -106,9 +101,17 @@ public class LoadManagerSH : MonoBehaviour
         
         if(fadeIn)
         {
+
+            StartCoroutine(WaitAndPop());
             LoadGameScene();
-            StartCoroutine(GameStartCor(false));
         }
+    }
+
+    IEnumerator WaitAndPop()
+    {
+        fadeCanvas.SetActive(true);
+        yield return new WaitForSeconds(1.5f);
+        fadeCanvas.SetActive(false);
     }
 
     public void GameEnd()
@@ -162,7 +165,7 @@ public class LoadManagerSH : MonoBehaviour
 
     public void LoadGameScene()
     {
-        SceneManager.LoadScene(nextStage);
+        SceneManager.LoadSceneAsync(nextStage);
     }
 
 

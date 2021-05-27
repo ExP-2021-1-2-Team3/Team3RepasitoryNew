@@ -39,7 +39,7 @@ public class MainSceneManagerSH : MonoBehaviour
     void MakeGlitch()
     {
         nextStage = loadManager.nextStage;
-        if(nextStage == 1)
+        if(nextStage == 1 || nextStage == 2)
         {
             return;
         }

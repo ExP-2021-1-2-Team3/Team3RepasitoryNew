@@ -199,4 +199,9 @@ public class GameManagerJH : MonoBehaviour
             //메인 프로그래머님 다음 장면으로 연결해주시면 됩니다.
         }
     }
+
+    public void OnGameExit()
+    {
+        LoadManagerSH.singleTon.GameEnd();
+    }
 }
