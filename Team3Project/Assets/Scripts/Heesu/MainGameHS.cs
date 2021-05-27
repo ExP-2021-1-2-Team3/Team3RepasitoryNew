@@ -20,7 +20,7 @@ public class MainGameHS : MonoBehaviour
     private string[] phase = {"BOK","BEAROKLY","ALRMBEOKYPX","A"};
     private float nextActionTime = 0.0f;
     private List<LetterHS> letterList;
-    private Image background;
+    private SpriteRenderer background;
     private int nextSpwanIndex, nextGameIndex;
     private bool isGameOver;
 
@@ -31,7 +31,7 @@ public class MainGameHS : MonoBehaviour
     
     void Start(){
         letterList = new List<LetterHS>(); //글자들 떨어지는거 오브젝트 풀링
-        background = gameObject.GetComponent<Image>(); //배경화면 전환
+        background = gameObject.transform.GetChild(1).GetComponent<SpriteRenderer>(); //배경화면 전환
         nextSpwanIndex = 0; //리스트 순회용
         nextActionTime = Time.time;
         nextGameIndex = 0; //BEAR, BOOK, ALARM용

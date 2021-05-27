@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class PersonHS : MonoBehaviour
 {
     [SerializeField] public float duration;
-    private Image image, ex_image;
+    private SpriteRenderer image, ex_image;
     private Sprite noraml, angry;
     private float startTime;
     private bool return_normal_flag;
@@ -14,8 +14,8 @@ public class PersonHS : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        image = gameObject.GetComponent<Image>();
-        ex_image = gameObject.transform.GetChild(0).GetComponent<Image>();
+        image = gameObject.GetComponent<SpriteRenderer>();
+        ex_image = gameObject.transform.GetChild(0).GetComponent<SpriteRenderer>();
         ex_image.color = new Color(1, 1, 1, 0);
         startTime = Time.time;
         return_normal_flag = false;
