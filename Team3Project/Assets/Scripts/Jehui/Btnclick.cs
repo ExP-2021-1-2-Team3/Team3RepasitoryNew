@@ -10,7 +10,7 @@ public class Btnclick : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     [SerializeField] Animator anim;
     [SerializeField] GameManagerJH game;
     [SerializeField] float acceleration = 5f;
-    [SerializeField] float Maxvel = 5f;
+    [SerializeField] float Maxvel = 10f;
 
     public static int LeftBtnClickCounter = 0;
     public static int RightBtnClickCounter = 0;
@@ -19,7 +19,7 @@ public class Btnclick : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     public void OnPointerDown(PointerEventData ped)
     {
         switch (gameObject.name)
-        {            
+        {
             case "LeftBtn":
                 if (!game.isInRootedCoroutine)
                 {
@@ -30,7 +30,7 @@ public class Btnclick : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
                     }
                     else
                         player.horizontalVec = (-1) * Maxvel;                             //최대 속력은 결국 Maxspeed * speed이다.  
-                }                   
+                }
                 else
                     LeftBtnClickCounter++;
                 break;
@@ -44,16 +44,19 @@ public class Btnclick : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
                     }
                     else
                         player.horizontalVec = Maxvel;
-                }                    
+                }
                 else
                     RightBtnClickCounter++;
                 break;
             case "JumpBtn":
                 if (!game.isInRootedCoroutine)
                 {
-                    rigid.AddForce(Vector2.up * player.jumpPower, ForceMode2D.Impulse);
-                    anim.SetBool("isJumping", true);
-                }                   
+                    if (anim.GetBool("isJumping") == false)
+                    {
+                        rigid.AddForce(Vector2.up * player.jumpPower, ForceMode2D.Impulse);
+                        anim.SetBool("isJumping", true);
+                    }
+                }
                 else
                     JumpBtnClickCounter++;
                 break;
@@ -78,32 +81,21 @@ public class Btnclick : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
                 else
                     InteractionBtnClickCounter++;
                 break;
-                
-                default: break;
+
+            default: break;
         }
-      
+
     }
- 
+
 
     public void OnPointerUp(PointerEventData ped)
     {
-        if(gameObject.name=="RightBtn"|| gameObject.name == "LeftBtn")
+        if (gameObject.name == "RightBtn" || gameObject.name == "LeftBtn")
         {
             player.horizontalVec = 0f;
             player.anim.SetBool("isMoving", false);
         }
-        
-        if(gameObject.name=="JumpBtn")
-        {
-            player.verticalVec = 0f;
-            anim.SetBool("isJumping", false);
-        }
-        
+
     }
 
 }
-
-
-
-
-

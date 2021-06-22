@@ -7,11 +7,9 @@ public class Player : MonoBehaviour
     public Animator anim;
     public SpriteRenderer sRenderer;
     public Rigidbody2D rigid;
-    public float speed; //이동 속도
     public float jumpPower; //점프력
-    public float horizontalVec, verticalVec; 
-    public bool isJump;
-    
+    public float horizontalVec;
+
 
     void Start()
     {
@@ -22,23 +20,22 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        Vector2 moveVec = new Vector2(horizontalVec, 0);
-        Vector2 jumpVec = !isJump ? Vector2.up : Vector2.zero;
+        rigid.velocity = new Vector2(horizontalVec, rigid.velocity.y);
 
         //플레이어 방향전환
         if (rigid.velocity.x < 0)
             sRenderer.flipX = true;
-        else if(rigid.velocity.x > 0)
+        else if (rigid.velocity.x > 0)
             sRenderer.flipX = false;
     }
     void OnCollisionStay2D(Collision2D other)
     {
-        isJump = false;
+        anim.SetBool("isJumping", false);
     }
 
     void OnCollisionExit2D(Collision2D other)
     {
-        isJump = true;
+        anim.SetBool("isJumping", true);
     }
 
 }
