@@ -43,9 +43,13 @@ public class GameManagerJH : MonoBehaviour
     public bool touchedC4 = false;
     public bool touchedDoor = false;
     //public SpriteRenderer Curled1sr, Curled2sr, Curled3sr, Curled4sr;  필요할까...? spriterenderer 컴포넌트를 끌어오려고 이렇게 했다.(오브젝트의 알파값을 수정하기 위해서)
-    
-    Rigidbody2D rigid;   
-   
+
+    public Button RightBtn, LeftBtn, JumpBtn, InteractionBtn;
+
+    Rigidbody2D rigid;
+
+    public FadeControl fadecontrol;
+
     //상수 지정. 수정 필요 시 여기서 하면 됨!
     public Vector3 respawnPosition= new Vector3(2.15f, -8.38f, 0);
     public Vector3 firstFloorPosition = new Vector3(-49.39f, -33.24f, 0f);
@@ -56,7 +60,7 @@ public class GameManagerJH : MonoBehaviour
     {
         Trapdoor.SetActive(true);
         rigid = Player.GetComponent<Rigidbody2D>();
-        StartCoroutine(StunTimer());      
+        StartCoroutine("StunTimer");      
     }
     void Update()
     {
@@ -70,78 +74,89 @@ public class GameManagerJH : MonoBehaviour
     {
         while (true)
         {
-            StunTime -= Time.deltaTime; // 시간은 계속 깎입니다.
+            StunTime -= 0.5f; // 시간은 계속 깎입니다.
             Debug.Log("스턴까지 남은 시간 출력: " + (int)StunTime);
             StunTimeText.text = "TIME: " + (int)StunTime; //화면 텍스트 표시
-            if ((int)StunTime <= 0)
+            if (StunTime <= 0)
             {
                 StunTime = 15;
-                StunTimeText.text = "!!";               
-                StartCoroutine(RootedTimer());
+                StunTimeText.text = "!!";
+                StartCoroutine("RootedTimer");
                 break;
             }
             else
             {
-                yield return null;
+                yield return new WaitForSeconds(0.5f);
             }
         }
     }
     IEnumerator RootedTimer() //스턴시키는 시간 잰다.
     {
         isInRootedCoroutine = true;                                  //버튼 카운터를 활성화하기 위한 조건.
-        Color color = RootedTimeText.color;
+        RootedTimeText.color = new Color(255 / 255f, 0 / 255f, 0 / 255f, 255 / 255f);
         rigid.velocity = Vector3.zero;                               //움직임 불가.
-        
-        color.a = 1f;                                                //타이머 시작 이후 밑에 숨어있던 타이머가 게이머에게 보임.
+
+        int ranint = Random.Range(1, 4);                                               //타이머 시작 이후 밑에 숨어있던 타이머가 게이머에게 보임.
         while (true)
         {
-            RootedTime -= Time.deltaTime;                                //StunTime이 다 지나고 나서 RootedTimer의 시간이 깎입니다.
+            RootedTime -= 0.5f;                                //StunTime이 다 지나고 나서 RootedTimer의 시간이 깎입니다.
             Debug.Log("제한 시간을 출력합니다: " + (int)RootedTime);
             RootedTimeText.text = "" + (int)RootedTime;
 
-            didOvercame();
 
-            if ((int)RootedTime <= 0)
+            didOvercame(ranint);
+
+            if (RootedTime <= 0)
             {
-                color.a = 0f;
+                RootedTimeText.color = new Color(255 / 255f, 0 / 255f, 0 / 255f, 0 / 255f);
+                RightBtn.GetComponent<Image>().color = new Color(255 / 255f, 255 / 255f, 255 / 255f, 100 / 255f);
+                LeftBtn.GetComponent<Image>().color = new Color(255 / 255f, 255 / 255f, 255 / 255f, 100 / 255f);
+                JumpBtn.GetComponent<Image>().color = new Color(255 / 255f, 255 / 255f, 255 / 255f, 100 / 255f);
+                InteractionBtn.GetComponent<Image>().color = new Color(255 / 255f, 255 / 255f, 255 / 255f, 100 / 255f); //rooted 종료 후, 버튼의 알파값 원래대로 초기화
+
                 if (isovercame)                                              //탈출 조건을 만족할 시
                 {
                     RootedTime = 5;
                     isInRootedCoroutine = false;                             //이 시간이 다 되면 카운팅을 할 이유가 없다.
                     StartCoroutine(StunTimer());                //탈출.바로 StunTimer 코루틴 시작;
+                    break;
                 }
                 else
                 {
                     isInRootedCoroutine = false;
                     respawn();                                               //못할 시 리스폰 위치에서 리스폰.
                     StartCoroutine(StunTimer());                //StunTimer 코루틴 시작.
+                    break;
                 }
             }
             else
-                yield return null;
+                yield return new WaitForSeconds(0.5f);
         }
         
     }
-    public void didOvercame()
+    public void didOvercame(int ranint)
     {        
-        int ranint = Random.Range(1, 4);
+        
         switch (ranint)
         {
             case 1:
-
+                RightBtn.GetComponent<Image>().color = new Color(255 / 255f, 255 / 255f, 255 / 255f, 200 / 255f); //기믹에 해당할 때마다 해당 케이스에서 눌러야 하는 버튼의 알파값이 상승.
+                LeftBtn.GetComponent<Image>().color = new Color(255 / 255f, 255 / 255f, 255 / 255f, 200 / 255f);  //뭘 쳐야 하는지에 인식을 시켜야 하기 때문이다.
                 if (Btnclick.LeftBtnClickCounter + Btnclick.RightBtnClickCounter >= 30)
                     isovercame = true;
                 else
                     isovercame = false;
                 break;
             case 2:
-                if(Btnclick.JumpBtnClickCounter>=20)
+                JumpBtn.GetComponent<Image>().color = new Color(255 / 255f, 255 / 255f, 255 / 255f, 200 / 255f);
+                if (Btnclick.JumpBtnClickCounter>=20)
                     isovercame = true;
                 else
                     isovercame = false;
                 break;
             case 3:
-                if(Btnclick.InteractionBtnClickCounter>=20)
+                InteractionBtn.GetComponent<Image>().color = new Color(255 / 255f, 255 / 255f, 255 / 255f, 200 / 255f);
+                if (Btnclick.InteractionBtnClickCounter>=20)
                     isovercame = true;
                 else
                     isovercame = false;
@@ -154,7 +169,7 @@ public class GameManagerJH : MonoBehaviour
 
     public void respawn()
     {
-        //화면 페이드아웃 -> 페이드인 코드;
+        fadecontrol.Fade();//화면 페이드아웃 -> 페이드인 코드;
         Player.transform.position = respawnPosition;
         HPManager.hp -= 1;
     }
@@ -200,8 +215,8 @@ public class GameManagerJH : MonoBehaviour
         }
     }
 
-    public void OnGameExit()
+    /*(public void OnGameExit()
     {
         LoadManagerSH.singleTon.GameEnd();
-    }
+    }*/
 }

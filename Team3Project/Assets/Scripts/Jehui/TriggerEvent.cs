@@ -29,7 +29,7 @@ public class TriggerEvent : MonoBehaviour
             game.isGameClear = true;
             game.gameClear();
         }
-            
+    
     }
 
     public void OnCollisionEnter2D(Collision2D collision)

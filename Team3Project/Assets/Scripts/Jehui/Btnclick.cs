@@ -51,8 +51,11 @@ public class Btnclick : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
             case "JumpBtn":
                 if (!game.isInRootedCoroutine)
                 {
-                    rigid.AddForce(Vector2.up * player.jumpPower, ForceMode2D.Impulse);
-                    anim.SetBool("isJumping", true);
+                    if (anim.GetBool("isJumping") == false)
+                    {
+                        rigid.AddForce(Vector2.up * player.jumpPower, ForceMode2D.Impulse);
+                        anim.SetBool("isJumping", true);
+                    }                   
                 }                   
                 else
                     JumpBtnClickCounter++;
@@ -92,13 +95,7 @@ public class Btnclick : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
             player.horizontalVec = 0f;
             player.anim.SetBool("isMoving", false);
         }
-        
-        if(gameObject.name=="JumpBtn")
-        {
-            player.verticalVec = 0f;
-            anim.SetBool("isJumping", false);
-        }
-        
+               
     }
 
 }

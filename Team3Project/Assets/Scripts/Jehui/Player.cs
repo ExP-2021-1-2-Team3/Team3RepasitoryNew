@@ -9,7 +9,7 @@ public class Player : MonoBehaviour
     public Rigidbody2D rigid;
     public float speed; //이동 속도
     public float jumpPower; //점프력
-    public float horizontalVec, verticalVec; 
+    public float horizontalVec;
     public bool isJump;
     
 
@@ -22,8 +22,7 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        Vector2 moveVec = new Vector2(horizontalVec, 0);
-        Vector2 jumpVec = !isJump ? Vector2.up : Vector2.zero;
+        rigid.velocity = new Vector2(horizontalVec, rigid.velocity.y);
 
         //플레이어 방향전환
         if (rigid.velocity.x < 0)
