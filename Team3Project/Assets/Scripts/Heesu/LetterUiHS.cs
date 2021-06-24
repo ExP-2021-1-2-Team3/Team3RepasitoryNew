@@ -1,32 +1,26 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 //화면에 띄워질 글자 1개 오브젝트
 public class LetterUiHS : MonoBehaviour
 {
+    [SerializeField] private float lengthOfThisObject;
 
-    [SerializeField] private int lengthOfThisObject;
-    [SerializeField] private int gap;
-
-    private Text childText;
+    private TextMesh childText;
     private bool fading;
     private bool will_input, will_reset;
     private char will_input_char;
 
-    int getRectXPosition(int index, int currMaxLength){
-        return (int)((lengthOfThisObject + gap) * (index + (5 - currMaxLength) / 2.0f));
+    float getRectXPosition(int index, int currMaxLength){
+        return (lengthOfThisObject) * (index + (5 - currMaxLength) / 2.0f);
     }
 
-    public void ResetUi(int index, int currMaxLength, RectTransform parent){
-        Image image = GetComponent<Image>();
-        RectTransform rectTransform = GetComponent<RectTransform>();
-        rectTransform.anchoredPosition = new Vector3(
-            parent.anchoredPosition.x - parent.rect.width * 0.5f + getRectXPosition(index, currMaxLength) - 55, 
-            parent.anchoredPosition.y - 20, 0);
+    public void ResetUi(int index, int currMaxLength, Transform parent){
+        SpriteRenderer image = GetComponent<SpriteRenderer>();
+        transform.localPosition = new Vector3(parent.localPosition.x - 3.0f + getRectXPosition(index, currMaxLength), 
+            parent.localPosition.y - 0.15f, -0.23f);
         if(childText == null)
-            childText = transform.GetChild(0).GetComponent<Text>();
+            childText = transform.GetChild(0).GetComponent<TextMesh>();
         childText.color = new Color(0, 0, 0, 0);
         image.color = new Color(1, 1, 1, 0);
     }
@@ -35,7 +29,7 @@ public class LetterUiHS : MonoBehaviour
     void Start()
     {
         fading = false;
-        childText = transform.GetChild(0).GetComponent<Text>();
+        childText = transform.GetChild(0).GetComponent<TextMesh>();
     }
 
     void Update(){
@@ -76,7 +70,7 @@ public class LetterUiHS : MonoBehaviour
         float t = 0f;
         bool do_animate_text_alpha = false;
         WaitForEndOfFrame w = new WaitForEndOfFrame();
-        Image image = GetComponent<Image>();
+        SpriteRenderer image = GetComponent<SpriteRenderer>();
         Color color = new Color(1, 1, 1, 0), text_color = new Color(0, 0, 0, 0);
         fading = true;
 
@@ -111,7 +105,7 @@ public class LetterUiHS : MonoBehaviour
     {
         float t = 0f;
         WaitForEndOfFrame w = new WaitForEndOfFrame();
-        Image image = GetComponent<Image>();
+        SpriteRenderer image = GetComponent<SpriteRenderer>();
         Color color = new Color(1, 1, 1, 1), text_color = new Color(0, 0, 0, 0);
         childText.text = input.ToString();
         fading = true;
