@@ -31,13 +31,12 @@ public class BookShelf : MonoBehaviour
             {
                 touchedObj = hit.collider.gameObject;
             }
-        }
+        }  //  레이캐스트로 오브젝트 선택
 
-        if (touchedObj == aimObj)
+        if (touchedObj == aimObj)   //  선택된 오브젝트 = E책 일 경우 화면에 E책 줌인 출력
         {
             bookShelfJoomin.SetActive(true);
             CloseBtn.isOpenedUI = true;
-            Debug.Log("E가 적힌 책 발견!");
             touchedObj = null;
         }
     }

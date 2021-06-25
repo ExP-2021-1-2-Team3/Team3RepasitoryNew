@@ -33,37 +33,33 @@ public class Blanket_Carpet : MonoBehaviour
             {
                 touchedObj = hit.collider.gameObject;
             }
-        }
+        }   //  레이캐스트로 오브젝트 선택
 
-        if (touchedObj == Blanket)
+        if (touchedObj == Blanket)  //  이불 선택 시
         {
-            if (isCarpetOpened)
+            if (isCarpetOpened) //  이전에 카펫을 확인했을 경우
             {
-                Debug.Log("이불을 젖혔더니 책이 나왔다!");
                 isBlanketOpened = true;
-                cam.transform.position = new Vector3(0, -45, -10);
+                cam.transform.position = new Vector3(0, -45, -10);  //  전부 확인된 화면으로 이동
             }
-            else
+            else // 이전에 카펫을 확인하지 않았을 경우
             {
-                Debug.Log("이불을 젖혔더니 책이 나왔다!");
                 isBlanketOpened = true;
-                cam.transform.position = new Vector3(0, -15, -10);
+                cam.transform.position = new Vector3(0, -15, -10);  //  이불만 확인된 화면으로 이동
             }
             touchedObj = null;
         }
-        if (touchedObj == Carpet)
+        if (touchedObj == Carpet)   //  카펫 선택시
         {
-            if (isBlanketOpened)
+            if (isBlanketOpened) // 이전에 카펫을 확인했을 경우
             {
-                Debug.Log("카페트를 들었더니 앨범이 나왔다!");
                 isCarpetOpened = true;
-                cam.transform.position = new Vector3(0, -45, -10);
+                cam.transform.position = new Vector3(0, -45, -10);  //  전부 확인된 화면으로 이동
             }
-            else
+            else // 이전에 카펫을 확인하지 않았을 경우
             {
-                Debug.Log("카페트를 들었더니 앨범이 나왔다!");
                 isCarpetOpened = true;
-                cam.transform.position = new Vector3(0, -30, -10);
+                cam.transform.position = new Vector3(0, -30, -10);  //  카펫만 확인된 화면으로 이동
             }
             touchedObj = null;
         }

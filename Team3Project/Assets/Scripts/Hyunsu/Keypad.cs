@@ -30,9 +30,9 @@ public class Keypad : MonoBehaviour
             {
                 touchedObj = hit.collider.gameObject;
             }
-        }
+        }   //  레이캐스트로 오브젝트 선택
 
-        if (touchedObj == aimObj)
+        if (touchedObj == aimObj)   //  선택된 오브젝트 = 키패드 일 경우 화면에 키패드 줌인 출력
         {
             keypad.SetActive(true);
             CloseBtn.isOpenedUI = true;

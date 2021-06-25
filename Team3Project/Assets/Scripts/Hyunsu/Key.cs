@@ -11,6 +11,7 @@ public class Key : MonoBehaviour
     RaycastHit2D hit;
     public Camera cam;
     public static bool isKeyFound = false;
+    public static bool isKeyUsed = false;
 
     // Start is called before the first frame update
     void Start()
@@ -33,18 +34,17 @@ public class Key : MonoBehaviour
             {
                 touchedObj = hit.collider.gameObject;
             }
-        }
+        } // 레이캐스트로 오브젝트 선택
 
-        if (touchedObj == aimObj)
+        if (touchedObj == aimObj)   //  선택된 오브젝트 = 열쇠 일 경우 열쇠 줌인 화면 출력
         {
             keyJoomin.SetActive(true);
             CloseBtn.isOpenedUI = true;
             touchedObj = null;
-            Debug.Log("열쇠 발견!");
             isKeyFound = true;
             
         }
-        if (isKeyFound)
+        if (isKeyFound) //  열쇠를 찾았을 경우 열쇠 스프라이트 제거
         {
             keySprite.SetActive(false);
         }

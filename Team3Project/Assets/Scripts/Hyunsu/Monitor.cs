@@ -31,13 +31,12 @@ public class Monitor : MonoBehaviour
             {
                 touchedObj = hit.collider.gameObject;
             }
-        }
+        }   //  레이캐스트로 오브젝트 선택
 
-        if (touchedObj == aimObj)
+        if (touchedObj == aimObj)   // 선택된 오브젝트 = 모니터 일 경우 모니터 줌인 화면 출력
         {
             monitorJoomin.SetActive(true);
             CloseBtn.isOpenedUI = true;
-            Debug.Log("T가 적힌 모니터 발견!");
             touchedObj = null;
         }
     }

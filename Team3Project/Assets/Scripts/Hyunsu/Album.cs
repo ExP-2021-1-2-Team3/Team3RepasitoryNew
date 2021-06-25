@@ -31,14 +31,13 @@ public class Album : MonoBehaviour
             {
                 touchedObj = hit.collider.gameObject;
             }
-        }
+        }   //  레이캐스트로 오브젝트 선택
 
-        if (touchedObj == aimObj)
+        if (touchedObj == aimObj)   //  선택된 오브젝트 = 앨범 일 경우 화면에 앨범 줌인 출력
         {
             albumJoomin.SetActive(true);
             CloseBtn.isOpenedUI = true;
             touchedObj = null;
-            Debug.Log("X가 적힌 앨범 발견!");
         }
     }
 }

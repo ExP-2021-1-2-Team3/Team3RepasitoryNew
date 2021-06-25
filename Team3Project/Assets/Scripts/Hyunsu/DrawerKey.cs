@@ -19,7 +19,6 @@ public class DrawerKey : MonoBehaviour
         if (Key.isKeyFound)
         {
             isKeyFoundDrawer = true;
-            isDrawerOpened = true;
         }
     }
 }

@@ -10,11 +10,11 @@ public class PasswordInput : MonoBehaviour
 
     void Start()
     {
-        passwordText.text = ""; //  ��ȣ �ؽ�Ʈ �ʱ�ȭ
+        passwordText.text = ""; //  입력된 암호 초기화
     }
 
     void Update()
     {
-        passwordText.text = vault.inputString;  //  �Էµ� ��ȣ ���
+        passwordText.text = vault.inputString;  //  입력된 암호 주기적으로 업데이트
     }
 }

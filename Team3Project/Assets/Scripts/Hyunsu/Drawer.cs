@@ -10,6 +10,7 @@ public class Drawer : MonoBehaviour
     public GameObject openedDrawer;
     RaycastHit2D hit;
     public Camera cam;
+    public static bool isDrawerOpened = false;
 
     // Start is called before the first frame update
     void Start()
@@ -33,19 +34,18 @@ public class Drawer : MonoBehaviour
             {
                 touchedObj = hit.collider.gameObject;
             }
-        }
+        }   // 레이캐스트로 오브젝트 선택
 
-        if (touchedObj == aimObj)
+        if (touchedObj == aimObj)   //  선택된 오브젝트 = 서랍일 경우 서랍 줌인 화면 출력
         {
-            if (KeyInInven.isKeyUsed)
+            if (isDrawerOpened) //  이전에 서랍을 열었을 경우 바로 열린 서랍 화면 출력
             {
                 openedDrawer.SetActive(true);
             }
-            else
+            else // 처음으로 서랍을 열 경우 잠긴 서랍 화면 출력
             {
                 drawerJoomin.SetActive(true);
                 CloseBtn.isOpenedUI = true;
-                Debug.Log("잠겨있는 서랍 발견! 열쇠가 필요할거 같은데...");
                 touchedObj = null;
             }
             touchedObj = null;

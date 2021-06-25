@@ -29,7 +29,6 @@ public class Vault : MonoBehaviour
         {
             keypad.SetActive(false);
             CloseBtn.isOpenedUI = true;
-            Debug.Log("서랍이 열렸습니다.");
             inputString = "";
             isVaultOpen = true;
             //화면 출력

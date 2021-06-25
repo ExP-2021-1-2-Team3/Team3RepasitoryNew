@@ -31,13 +31,12 @@ public class Poster : MonoBehaviour
             {
                 touchedObj = hit.collider.gameObject;
             }
-        }
+        }   //  레이캐스트로 오브젝트 선택
 
-        if (touchedObj == aimObj)
+        if (touchedObj == aimObj)    // 선택된 오브젝트 = 포스터 일 경우 포스터 줌인 화면 출력
         {
             posterJoomin.SetActive(true);
             CloseBtn.isOpenedUI = true;
-            Debug.Log("O가 적힌 포스터 발견!");
             touchedObj = null;
         }
     }
