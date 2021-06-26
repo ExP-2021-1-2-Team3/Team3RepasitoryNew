@@ -34,10 +34,6 @@ public class LetterUiManagerHS : MonoBehaviour
         //정답을 맞춤.
         if(currentWord[inputIndex] == input_char){
             correctIndex += 1;
-            person.Good();
-        } //정답을 못 맞춤.
-        else { 
-            person.Angry();
         }
         inputIndex += 1;
     }
@@ -95,8 +91,14 @@ public class LetterUiManagerHS : MonoBehaviour
         if(isUIupdateNeeded)
             UpdateUiObjects();
         //정답이 아니다. MainGameHS에서 부르는 형태를 비슷하게 이용함.
-        if(IsCurrentWordInputOver() && !IsCurrentWordIsCorrect()){
-            SetGameString(currentWord);
+        if(IsCurrentWordInputOver()){
+            if(!IsCurrentWordIsCorrect()){
+                SetGameString(currentWord);
+                person.Angry();
+            }
+            else{
+                person.Good();
+            }
         }
     }
 
