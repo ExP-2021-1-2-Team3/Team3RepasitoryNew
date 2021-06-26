@@ -7,6 +7,7 @@ public class Obs : MonoBehaviour
     Vector3 p1;
     Vector3 p2;
     float t = 0;
+    public Hp hp;
     
 
     void Start()
@@ -33,6 +34,11 @@ public class Obs : MonoBehaviour
         if (transform.position.sqrMagnitude < 2)
         {
             Hp.health -= 1;
+            gameObject.SetActive(false);
+        }
+
+        if (Hp.health == 0)
+        {
             gameObject.SetActive(false);
         }
     }

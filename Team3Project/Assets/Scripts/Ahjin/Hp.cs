@@ -4,16 +4,13 @@ using UnityEngine;
 
 public class Hp : MonoBehaviour
 {
-    public GameObject hp1, hp2, hp3;
+    public GameObject hp1, hp2, hp3, hands, ms;
     public static int health;
     const string obsTag = "obs";
 
     void Start()
     {
         health = 3;
-        hp1.gameObject.SetActive(true);
-        hp2.gameObject.SetActive(true);
-        hp3.gameObject.SetActive(true);
     }
 
     void OnTriggerEnter2D(Collider2D coll)
@@ -51,7 +48,10 @@ public class Hp : MonoBehaviour
                 hp1.gameObject.SetActive(false);
                 hp2.gameObject.SetActive(false);
                 hp3.gameObject.SetActive(false);
+                hands.gameObject.SetActive(false);
                 break;
         }
     }
+
+    
 }

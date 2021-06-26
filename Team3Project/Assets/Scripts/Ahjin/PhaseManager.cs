@@ -9,7 +9,7 @@ public class PhaseManager : MonoBehaviour
     void Update()
     {
         phaseTimer += Time.deltaTime;
-        if (phaseTimer > 30)
+        if (phaseTimer > 1)
         {
             phase = phase + 1;
             phaseTimer = 0;

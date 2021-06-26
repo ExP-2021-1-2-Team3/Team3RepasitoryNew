@@ -43,5 +43,12 @@ public class View : MonoBehaviour
             p2.gameObject.SetActive(false);
             p3.gameObject.SetActive(true);
         }
+
+        if (phaseManager.phase == 4)
+        {
+            p1.gameObject.SetActive(false);
+            p2.gameObject.SetActive(false);
+            p3.gameObject.SetActive(true);
+        }
     }
 }
