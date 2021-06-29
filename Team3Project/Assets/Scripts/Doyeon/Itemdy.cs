@@ -11,5 +11,4 @@ public class Itemdy : MonoBehaviour
         Destroy(gameObject);
     }
 
-
 }

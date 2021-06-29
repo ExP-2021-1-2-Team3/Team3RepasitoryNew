@@ -6,9 +6,12 @@ public class Finish : MonoBehaviour
 {
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        //»óÈÆÄÚµå~
-        LoadManagerSH.singleTon.GameEnd();
+        //ï¿½ï¿½ï¿½ï¿½ï¿½Úµï¿½~
+        if (Score.ItemAmount == 4){
+            LoadManagerSH.singleTon.GameEnd();
+            ItemSound.FinishSound();
+        }
 
-        ItemSound.FinishSound();
+
     }
 }

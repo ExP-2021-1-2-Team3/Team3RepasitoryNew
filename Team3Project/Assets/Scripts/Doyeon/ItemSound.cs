@@ -10,8 +10,8 @@ public class ItemSound : MonoBehaviour
     void Start()
     {
         audioSource = GetComponent<AudioSource>();
-        audioClip1 = Resources.Load<AudioClip>("Item1");
-        audioClip2 = Resources.Load<AudioClip>("Nice1");
+        audioClip1 = Resources.Load<AudioClip>("Doyeon/Item1");
+        audioClip2 = Resources.Load<AudioClip>("Doyeon/Nice1");
     }
 
     public static void ItemdySound()
