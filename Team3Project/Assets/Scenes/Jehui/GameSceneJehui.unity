@@ -22271,12 +22271,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a398355ed66ef040a9c8a0199866feb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  life1: {fileID: 1572215818}
+  life1: {fileID: 1533530231}
   life2: {fileID: 604624146}
-  life3: {fileID: 1533530231}
-  life1b: {fileID: 284075192}
+  life3: {fileID: 1572215818}
+  life1b: {fileID: 1494375394}
   life2b: {fileID: 1341727056}
-  life3b: {fileID: 1494375394}
+  life3b: {fileID: 284075192}
 --- !u!1 &1096197888
 GameObject:
   m_ObjectHideFlags: 0
