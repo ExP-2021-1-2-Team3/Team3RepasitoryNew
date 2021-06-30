@@ -37,12 +37,12 @@ public class GameManagerJH : MonoBehaviour
     public GameObject Trapdoor;
 
     public GameObject Curled1, Curled2, Curled3, Curled4;                       //웅크린자 1, 2, 3, 4
+    public GameObject Curled1r, Curled2r, Curled3r, Curled4r;                   //웅크린자 변형.
     public bool touchedC1 = false;                    //trigger인 웅크린자들을 player가 지나가면 true가 되고, 이때 버튼 누르면 SetActive가 false;
     public bool touchedC2 = false;
     public bool touchedC3 = false;
     public bool touchedC4 = false;
     public bool touchedDoor = false;
-    //public SpriteRenderer Curled1sr, Curled2sr, Curled3sr, Curled4sr;  필요할까...? spriterenderer 컴포넌트를 끌어오려고 이렇게 했다.(오브젝트의 알파값을 수정하기 위해서)
 
     public Button RightBtn, LeftBtn, JumpBtn, InteractionBtn;
 
@@ -51,8 +51,8 @@ public class GameManagerJH : MonoBehaviour
     public FadeControl fadecontrol;
 
     //상수 지정. 수정 필요 시 여기서 하면 됨!
-    public Vector3 respawnPosition = new Vector3(2.15f, -6.93f, 0);
-    public Vector3 firstFloorPosition = new Vector3(-49.39f, -33.24f, 0f);
+    public Vector3 respawnPosition = new Vector3(2.15f, -6.76f, 0);
+    public Vector3 firstFloorPosition = new Vector3(-49.39f, -31.62f, 0f);
     public float MinimalY = -50.29f;
     public float noCheatY = -20.5f;
 
@@ -116,23 +116,32 @@ public class GameManagerJH : MonoBehaviour
 
                 if (isovercame)                                              //탈출 조건을 만족할 시
                 {
+                    Btnclick.RightBtnClickCounter = 0;
+                    Btnclick.LeftBtnClickCounter = 0;
+                    Btnclick.JumpBtnClickCounter = 0;
+                    Btnclick.InteractionBtnClickCounter = 0;
                     RootedTime = 5;
                     isInRootedCoroutine = false;                             //이 시간이 다 되면 카운팅을 할 이유가 없다.
-                    StartCoroutine(StunTimer());                //탈출.바로 StunTimer 코루틴 시작;
+                    StartCoroutine(StunTimer());                             //탈출.바로 StunTimer 코루틴 시작;
                     break;
                 }
                 else
                 {
+                    Btnclick.RightBtnClickCounter = 0;
+                    Btnclick.LeftBtnClickCounter = 0;
+                    Btnclick.JumpBtnClickCounter = 0;
+                    Btnclick.InteractionBtnClickCounter = 0;
                     isInRootedCoroutine = false;
                     respawn();                                               //못할 시 리스폰 위치에서 리스폰.
-                    StartCoroutine(StunTimer());                //StunTimer 코루틴 시작.
+                    StartCoroutine(StunTimer());                             //StunTimer 코루틴 시작.
                     break;
                 }
             }
             else
                 yield return new WaitForSeconds(0.5f);
+            //부울변수 둔게 true면 startcoroutine stuntimer
         }
-
+        
     }
     public void didOvercame(int ranint)
     {

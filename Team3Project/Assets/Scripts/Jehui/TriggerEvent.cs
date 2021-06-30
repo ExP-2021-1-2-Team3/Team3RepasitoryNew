@@ -6,6 +6,7 @@ public class TriggerEvent : MonoBehaviour
 {
     [SerializeField] GameObject realObject;
     [SerializeField] GameManagerJH game;
+    //게임 내에서 
     public void OnTriggerStay2D(Collider2D collision)
     {
         if (realObject.name == "CurledupPlayer1")
@@ -19,17 +20,28 @@ public class TriggerEvent : MonoBehaviour
         
         if (realObject.name == "CurledupPlayer4")        
             game.touchedC4 = true;
-        
-        if (!game.Curled1.activeSelf && !game.Curled2.activeSelf)
-            if (realObject.name == "doorIN")
+
+
+        if (realObject.name == "DoorIN")
+            if (!game.Curled1.activeSelf && !game.Curled2.activeSelf)
+            {
+                game.isDoorActive = true;
                 game.touchedDoor = true;
+                Debug.Log("touchedDoor true");
+            }
+                
 
         if (realObject.name == "Alarm")
         {
             game.isGameClear = true;
             game.gameClear();
-        }
-            
+        }            
+    }
+    public void OnTriggerExit2D(Collider2D collision)
+    {
+        if (realObject.name == "DoorIN")
+            if (!game.Curled1.activeSelf && !game.Curled2.activeSelf)
+                game.touchedDoor = false;
     }
 
     public void OnCollisionEnter2D(Collision2D collision)

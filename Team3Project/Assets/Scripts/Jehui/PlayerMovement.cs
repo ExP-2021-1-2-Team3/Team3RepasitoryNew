@@ -51,7 +51,7 @@ public class PlayerMovement : MonoBehaviour
     {
         float h = Input.GetAxisRaw("Horizontal");
 
-        rigid.AddForce(Vector2.right * h, ForceMode2D.Impulse);
+        rigid.AddForce(Vector2.right * h * maxSpeed, ForceMode2D.Impulse);
 
         if (rigid.velocity.x > maxSpeed) //우측 최대 속도
             rigid.velocity = new Vector2(maxSpeed, rigid.velocity.y);
