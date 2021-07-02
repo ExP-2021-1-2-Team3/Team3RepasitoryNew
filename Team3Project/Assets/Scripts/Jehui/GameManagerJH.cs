@@ -212,7 +212,12 @@ public class GameManagerJH : MonoBehaviour
     public void gameClear()
     {
         if (isGameClear)
+        {
+            //ㅇㅋ 해놓다
+            LoadManagerSH.singleTon.GameEnd();
             Debug.Log("꿈을 탈출했습니다...?"); //메인 프로그래머님 다음 장면으로 연결해주시면 됩니다.
+        }
+            
     }
 
     public void gameOver()
@@ -221,6 +226,8 @@ public class GameManagerJH : MonoBehaviour
         {
             //페이드 아웃. 점프스케어도 할거면 한다.
             //메인 프로그래머님 다음 장면으로 연결해주시면 됩니다.
+            //ㅇㅋ 해놓다
+            LoadManagerSH.singleTon.GameEnd();
         }
     }
 

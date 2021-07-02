@@ -32,6 +32,7 @@ public class Alarm : MonoBehaviour
 
         if (transform.position.sqrMagnitude < 2)
         {
+            LoadManagerSH.singleTon.GameEnd();
             gameObject.SetActive(false);
         }
     }

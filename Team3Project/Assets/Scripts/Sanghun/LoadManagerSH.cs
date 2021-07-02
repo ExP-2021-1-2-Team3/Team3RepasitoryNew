@@ -17,6 +17,7 @@ public class LoadManagerSH : MonoBehaviour
 
     AudioSource ringAudio;
     public int nextStage;
+    bool gameEndCalled = false;
     // Start is called before the first frame update
     void Awake()
     {
@@ -42,7 +43,7 @@ public class LoadManagerSH : MonoBehaviour
             PlayerPrefs.Save();
         }
         //nextStage = PlayerPrefs.GetInt("Stage");
-        nextStage = 1;
+        nextStage = 3;
         StartCoroutine(GameStartCor(false));
 
     }
@@ -50,10 +51,20 @@ public class LoadManagerSH : MonoBehaviour
     public void LoadHomeScene()
     {
         nextStage++;
-        PlayerPrefs.SetInt("Stage", nextStage);
+        if(nextStage == 6)
+        {
+            PlayerPrefs.SetInt("Stage", 1);
+            SceneManager.LoadScene(6);
+        }
+        else
+        {
+            PlayerPrefs.SetInt("Stage", nextStage);
+            SceneManager.LoadScene(0);
+        }
+        
         PlayerPrefs.Save();
      
-        SceneManager.LoadScene(0);
+
         
     }
 
@@ -116,6 +127,12 @@ public class LoadManagerSH : MonoBehaviour
 
     public void GameEnd()
     {
+        if (gameEndCalled)
+        {
+            return;
+        }
+        Debug.Log("뭐야");
+        gameEndCalled = true;
         clockButtonCanvas.SetActive(true);
     }
 
@@ -156,9 +173,21 @@ public class LoadManagerSH : MonoBehaviour
         fadeImage.color = Color.black;
         LoadHomeScene();
         yield return new WaitForSeconds(2f);
-        mainSceneManager = GameObject.Find("MainSceneManager").GetComponent<MainSceneManagerSH>();
-        StartCoroutine(mainSceneManager.SceneLoadAnimation());
+        if(nextStage != 6)
+        {
+            mainSceneManager = GameObject.Find("MainSceneManager").GetComponent<MainSceneManagerSH>();
+            StartCoroutine(mainSceneManager.SceneLoadAnimation());
+
+        }
+        else
+        {
+            ringAudio.Play();
+            yield return new WaitForSeconds(2f);
+            ringAudio.Stop();
+        }
         fadeCanvas.SetActive(false);
+
+        gameEndCalled = false;
     }
 
 

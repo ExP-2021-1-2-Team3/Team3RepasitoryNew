@@ -25,6 +25,7 @@ public class MainSceneManagerSH : MonoBehaviour
 
     public void GameStartButton()
     {
+        uiCanvas.SetActive(false);
         StartCoroutine(loadManager.GameStartCor(true));
     }
 

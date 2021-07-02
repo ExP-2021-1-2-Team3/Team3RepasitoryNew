@@ -7,6 +7,7 @@ public class Hp : MonoBehaviour
     public GameObject hp1, hp2, hp3, hands;
     public static int health;
     const string obsTag = "obs";
+    bool ended = false; //ªÛ»∆¿Ã∞°æ∏.
     void Start()
     { 
         health = 3;
@@ -49,6 +50,11 @@ public class Hp : MonoBehaviour
                 hp3.gameObject.SetActive(false);
                 hands.gameObject.SetActive(false);
                 break;
+        }
+        if (health <= 0 && !ended)
+        {
+            ended = true;
+            LoadManagerSH.singleTon.GameEnd();
         }
     }
 

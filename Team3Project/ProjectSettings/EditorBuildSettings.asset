@@ -23,4 +23,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Ahjin/SampleScene.unity
     guid: 2cda990e2423bbf4892e6590ba056729
+  - enabled: 1
+    path: Assets/Scenes/Sanghun/SixthScene.unity
+    guid: 6c838f90e209e4843986767492b32fd5
   m_configObjects: {}
