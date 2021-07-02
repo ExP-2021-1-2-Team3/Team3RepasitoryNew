@@ -4,12 +4,11 @@ using UnityEngine;
 
 public class Hp : MonoBehaviour
 {
-    public GameObject hp1, hp2, hp3, hands, ms;
+    public GameObject hp1, hp2, hp3, hands;
     public static int health;
     const string obsTag = "obs";
-
     void Start()
-    {
+    { 
         health = 3;
     }
 

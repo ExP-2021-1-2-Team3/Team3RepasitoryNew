@@ -8,6 +8,7 @@ public class Obs : MonoBehaviour
     Vector3 p2;
     float t = 0;
     public Hp hp;
+    public AnimManager animmanager;
     
 
     void Start()
@@ -35,6 +36,7 @@ public class Obs : MonoBehaviour
         {
             Hp.health -= 1;
             gameObject.SetActive(false);
+            AnimManager.anim.SetTrigger("Blink");
         }
 
         if (Hp.health == 0)

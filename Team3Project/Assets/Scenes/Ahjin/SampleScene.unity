@@ -132,7 +132,9 @@ GameObject:
   - component: {fileID: 15371259}
   - component: {fileID: 15371258}
   - component: {fileID: 15371261}
+  - component: {fileID: 15371257}
   - component: {fileID: 15371260}
+  - component: {fileID: 15371256}
   m_Layer: 9
   m_Name: Character
   m_TagString: Player
@@ -140,6 +142,37 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!95 &15371256
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 15371255}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 9ece60c742801d74d9d855be2bb0b5e3, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &15371257
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 15371255}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6174fe435f69eac4293af3da64c87889, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!212 &15371258
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -246,7 +279,6 @@ MonoBehaviour:
   hp2: {fileID: 499570343}
   hp3: {fileID: 1916912992}
   hands: {fileID: 1115054760}
-  ms: {fileID: 0}
 --- !u!1 &112160257
 GameObject:
   m_ObjectHideFlags: 0
@@ -873,8 +905,7 @@ MonoBehaviour:
   hp1: {fileID: 1945279327}
   hp2: {fileID: 499570343}
   hp3: {fileID: 1916912992}
-  hands: {fileID: 0}
-  ms: {fileID: 0}
+  hands: {fileID: 868957311}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -2474,8 +2505,7 @@ MonoBehaviour:
   hp1: {fileID: 1945279327}
   hp2: {fileID: 499570343}
   hp3: {fileID: 1916912992}
-  hands: {fileID: 0}
-  ms: {fileID: 0}
+  hands: {fileID: 868957311}
 --- !u!1 &1932038872
 GameObject:
   m_ObjectHideFlags: 0
@@ -2606,8 +2636,7 @@ MonoBehaviour:
   hp1: {fileID: 1945279327}
   hp2: {fileID: 499570343}
   hp3: {fileID: 1916912992}
-  hands: {fileID: 0}
-  ms: {fileID: 0}
+  hands: {fileID: 868957311}
 --- !u!1 &1947429143
 GameObject:
   m_ObjectHideFlags: 0
