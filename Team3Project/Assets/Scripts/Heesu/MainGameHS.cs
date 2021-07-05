@@ -45,6 +45,7 @@ public class MainGameHS : MonoBehaviour
             letterList.Add(new_letter);
         }
         LoadNextGame();
+        SoundEffectsHS.BgmStart();
     }
 
     void LoadNextGame(){
@@ -75,8 +76,7 @@ public class MainGameHS : MonoBehaviour
             
             if(nextGameIndex >= 3){
                 Debug.Log("GAME END");
-                All_Stop();
-                LoadManagerSH.singleTon.GameEnd();
+                EndMinigame();
                 isGameOver = true;
             } else {
                 nextGameIndex += 1;
@@ -85,14 +85,23 @@ public class MainGameHS : MonoBehaviour
     }
 
     //THE WORLD
-    void All_Stop(){
+    void EndMinigame(){
+        SoundEffectsHS.BgmStop();
+        SoundEffectsHS.FinishSound();
         foreach(LetterHS letter in letterList){
             if(letter.isActiveAndEnabled){
                 Rigidbody2D rigid = letter.GetComponent<Rigidbody2D>();
                 rigid.gravityScale = 0;
-                rigid.velocity = Vector3.zero;
+                rigid.velocity = rigid.velocity * 0.05f;
+                letter.DisableTouchEvent();
             }
         }
+        StartCoroutine(WaitForSoundEffect());
+    }
+    
+    IEnumerator WaitForSoundEffect(){
+        yield return new WaitForSeconds(2.0f);
+        LoadManagerSH.singleTon.GameEnd();
     }
 
     //현재 진행중인 게임이 끝났으면 다음 게임으로

@@ -10,6 +10,7 @@ public class LetterHS : MonoBehaviour
     [Header("Set In Runtime")]
     public char this_letter;
     private const float destroyLimit = -15.0f;
+    private bool game_is_not_over = true;
 
     //다시 화면에 등장할 때 불리는 함수
     public void ResetByChar(char setChar)
@@ -31,8 +32,14 @@ public class LetterHS : MonoBehaviour
     //이걸 이용하면 사용자가 글자를 클릭했는지 알 수 있음.
     void OnMouseDown()
     {
-        LetterUiManagerHS.GetInstance().InputChar(this_letter);
-        gameObject.SetActive(false);
+        if(game_is_not_over){
+            LetterUiManagerHS.GetInstance().InputChar(this_letter);
+            gameObject.SetActive(false);
+        }
+    }
+
+    public void DisableTouchEvent(){
+        game_is_not_over = false;
     }
 
     //플레이어가 볼 수 없는 범위로 나가버렸는가?

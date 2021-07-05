@@ -30,6 +30,8 @@ public class LetterUiManagerHS : MonoBehaviour
         if(letterUIList[currentWord.Length - 1].IsFading())
             return;
 
+        SoundEffectsHS.LetterInput();
+
         letterUIList[inputIndex].Input(input_char);
         //정답을 맞춤.
         if(currentWord[inputIndex] == input_char){
