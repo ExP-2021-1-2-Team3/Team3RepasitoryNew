@@ -9,6 +9,7 @@ public class Monitor : MonoBehaviour
     public GameObject monitorJoomin;
     RaycastHit2D hit;
     public Camera cam;
+    [SerializeField] AudioSource computerSound;
 
     // Start is called before the first frame update
     void Start()
@@ -35,6 +36,7 @@ public class Monitor : MonoBehaviour
 
         if (touchedObj == aimObj)   // 선택된 오브젝트 = 모니터 일 경우 모니터 줌인 화면 출력
         {
+            computerSound.Play();
             monitorJoomin.SetActive(true);
             CloseBtn.isOpenedUI = true;
             touchedObj = null;

@@ -11,6 +11,7 @@ public class Drawer : MonoBehaviour
     RaycastHit2D hit;
     public Camera cam;
     public static bool isDrawerOpened = false;
+    [SerializeField] AudioSource drawerSound;
 
     // Start is called before the first frame update
     void Start()
@@ -38,6 +39,7 @@ public class Drawer : MonoBehaviour
 
         if (touchedObj == aimObj)   //  선택된 오브젝트 = 서랍일 경우 서랍 줌인 화면 출력
         {
+            drawerSound.Play();
             if (isDrawerOpened) //  이전에 서랍을 열었을 경우 바로 열린 서랍 화면 출력
             {
                 openedDrawer.SetActive(true);

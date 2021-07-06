@@ -56,6 +56,7 @@ public class CloseBtn : MonoBehaviour
     {
         if (Key.isKeyFound)   //  열쇠 보유시 열쇠구명 누르면 서랍이 열림
         {
+            Key.isKeyUsed = true;
             Drawer.isDrawerOpened = true;
             closedDrawer.SetActive(false);
             openedDrawer.SetActive(true);

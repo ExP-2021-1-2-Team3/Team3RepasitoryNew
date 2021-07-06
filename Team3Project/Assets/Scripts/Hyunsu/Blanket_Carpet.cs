@@ -11,6 +11,7 @@ public class Blanket_Carpet : MonoBehaviour
     public Camera cam;
     public bool isBlanketOpened = false;
     public bool isCarpetOpened = false;
+    [SerializeField] AudioSource blanketSound;
 
     // Start is called before the first frame update
     void Start()
@@ -37,6 +38,7 @@ public class Blanket_Carpet : MonoBehaviour
 
         if (touchedObj == Blanket)  //  이불 선택 시
         {
+            blanketSound.Play();
             if (isCarpetOpened) //  이전에 카펫을 확인했을 경우
             {
                 isBlanketOpened = true;

@@ -13,6 +13,7 @@ public class Vault : MonoBehaviour
     public string inputString;  //  현재 입력된 암호
     public int numOfChar;       //  입력된 암호의 알파벳 수
     public bool isVaultOpen;    //  금고가 열렸는가?
+    float time_delay;
 
     void Start()
     {
@@ -27,12 +28,18 @@ public class Vault : MonoBehaviour
     {
         if (password == inputString)   //  입력된 암호와 설정된 암호가 같을 시
         {
-            keypad.SetActive(false);
-            CloseBtn.isOpenedUI = true;
-            inputString = "";
-            isVaultOpen = true;
-            //화면 출력
-            openedVault.SetActive(true);
+            time_delay += Time.deltaTime;
+            if (time_delay >= 0.5f)
+            {
+                keypad.SetActive(false);
+                CloseBtn.isOpenedUI = true;
+                inputString = "";
+                isVaultOpen = true;
+                //화면 출력
+                openedVault.SetActive(true);
+                time_delay = 0;
+            }
         }
     }
+
 }
