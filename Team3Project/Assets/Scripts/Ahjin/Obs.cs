@@ -9,7 +9,7 @@ public class Obs : MonoBehaviour
     float t = 0;
     public Hp hp;
     public AnimManager animmanager;
-    
+
 
     void Start()
     {
@@ -37,6 +37,7 @@ public class Obs : MonoBehaviour
             Hp.health -= 1;
             gameObject.SetActive(false);
             AnimManager.anim.SetTrigger("Blink");
+            AnimManager.audioSource.Play();
         }
 
         if (Hp.health == 0)

@@ -5,6 +5,7 @@ using UnityEngine;
 public class Hp : MonoBehaviour
 {
     public GameObject hp1, hp2, hp3, hands;
+    public AudioSource audioSource;
     public static int health;
     const string obsTag = "obs";
     bool ended = false; //ªÛ»∆¿Ã∞°æ∏.
@@ -54,6 +55,7 @@ public class Hp : MonoBehaviour
         if (health <= 0 && !ended)
         {
             ended = true;
+            audioSource.Play();
             LoadManagerSH.singleTon.GameEnd();
         }
     }
