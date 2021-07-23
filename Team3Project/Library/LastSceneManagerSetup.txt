@@ -1,5 +1,5 @@
 sceneSetups:
-- path: Assets/Scenes/Ahjin/SampleScene.unity
+- path: Assets/Scenes/Hyunsu/MainRoom.unity
   isLoaded: 1
   isActive: 1
   isSubScene: 0
