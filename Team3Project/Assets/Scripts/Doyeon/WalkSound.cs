@@ -4,41 +4,36 @@ using UnityEngine;
 
 public class WalkSound : MonoBehaviour
 {
-    [SerializeField] float speed = 5f;
-    float moveX;
+    //[SerializeField] float speed = 5.0f;
+    float MoveDYX, MoveDYY;
+    public VirtualJoystick joystick;
     Rigidbody2D rb;
     AudioSource audioSrc;
-    bool isMoving = false;
+    //bool isMoving = false;
 
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        audioSrc = GetComponent<AudioSource>();   
+        audioSrc = GetComponent<AudioSource>(); 
     }
 
     // Update is called once per frame
     void Update()
     {
-        MoveSfx();
-    }
-
-    void MoveSfx()
-    {
-        moveX = Input.GetAxis("Horizontal") * speed;
-        rb.velocity = new Vector2(moveX, rb.velocity.y);
-        if (rb.velocity.x != 0) isMoving = true;
-        else isMoving = false;
-
-        if(isMoving)
-        {
-            if(!audioSrc.isPlaying)
-                audioSrc.Play();
-        }
-        else
-        {
+        MoveDYX = joystick.inputDirection.x;
+        MoveDYY = joystick.inputDirection.y;
+        
+        if ((MoveDYX == 0) && (MoveDYY == 0)){
             audioSrc.Stop();
+        }else{
+            if(!audioSrc.isPlaying){
+                audioSrc.Play();
+                }
+            
         }
         
     }
+
+    
 }

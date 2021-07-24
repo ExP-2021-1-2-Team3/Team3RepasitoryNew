@@ -22,6 +22,7 @@ public class MoveDY : MonoBehaviour
         
         if ((MoveDYX == 0) && (MoveDYY == 0)){
             anim.SetInteger("ManState", 1);
+
         }else{
             anim.SetInteger("ManState", 0);
         }
