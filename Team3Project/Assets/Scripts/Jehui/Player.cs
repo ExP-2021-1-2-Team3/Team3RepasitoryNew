@@ -61,7 +61,7 @@ public class Player : MonoBehaviour
     }
     // 오른쪽을 눌렀다가 오른쪽을 떼고 왼쪽을 누르는 경우
 
-    void OnCollisionStay2D(Collision2D other)       //점프상태인지 아닌지를 판단해줌. 이게 있어야 버튼 누를때 언제 점프인지를 
+    void OnCollisionStay2D(Collision2D other)       //점프상태인지 아닌지를 판단해줌. 이게 있어야 버튼 누를때 언제 점프인지를 안다.
     {
         anim.SetBool("isJumping", false);
     }

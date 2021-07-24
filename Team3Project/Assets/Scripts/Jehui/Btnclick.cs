@@ -78,7 +78,10 @@ public class Btnclick : MonoBehaviour
                     }
                 }
                 else
+                {                
                     JumpBtnClickCounter++;
+                    Debug.Log("점프 클릭 수: " + JumpBtnClickCounter);
+                }                  
                 break;
 
             case "Interaction":
@@ -108,7 +111,10 @@ public class Btnclick : MonoBehaviour
                         player.transform.position = game.firstFloorPosition;         //플레이어의 위치를 1층 문이 있는 곳으로 옮긴다.          
                 }
                 else
+                {
                     InteractionBtnClickCounter++;
+                    Debug.Log("인터랙션 클릭 수: " + InteractionBtnClickCounter);
+                }
                 break;
 
             default: break;
@@ -123,10 +129,11 @@ public class Btnclick : MonoBehaviour
         {
             case "RightBtn":
                 isRightBtnDown = false;
+                Debug.Log("isrightbtndown 부울 값 false됨");
                 break;
             case "LeftBtn":
                 isLeftBtnDown = false;
-                Debug.Log("부울 값 false됨");
+                Debug.Log("isleftbtndown 부울 값 false됨");
                 break;
             default: break;
         }
