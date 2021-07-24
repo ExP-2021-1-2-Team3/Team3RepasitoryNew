@@ -23,8 +23,8 @@ public class GameManagerJH : MonoBehaviour
     //false일 경우 리스폰. 처음 장소(2.15,-8.38,0)에서 부활.-> player.position=Vector3(2.15,-8.38,0)
     //가시에 닿을 경우 리스폰. 처음 장소(2.15,-8.38,0)에서 부활.-> player.position=Vector3(2.15,-8.38,0)
 
-    private float StunTime = 15;                    //마비까지 걸리는 시간
-    private float RootedTime = 5;                   //마비가 진행되는 최대 시간. 시간안에 못 풀시 하트 한칸 감소.
+    private float StunTime = 15f;                    //마비까지 걸리는 시간
+    private float RootedTime = 5f;                   //마비가 진행되는 최대 시간. 시간안에 못 풀시 하트 한칸 감소.
     public bool isInRootedCoroutine;
     public bool isDoorActive = false;
     public bool isovercame;                         //'스턴을 풀 조건'(버튼 연타 조건)을 충족했는지에 대한 bool형 변수
@@ -35,6 +35,10 @@ public class GameManagerJH : MonoBehaviour
     public GameObject Player;                       //플레이어
     public GameObject Alarm;
     public GameObject Trapdoor;
+    public GameObject firstfloorPlatform;
+    public GameObject anotherfloorPlatform;
+    public GameObject firstfloorThorn;
+    public GameObject anotherfirstfloorThorn;
 
     public GameObject Curled1, Curled2, Curled3, Curled4;                       //웅크린자 1, 2, 3, 4
     public GameObject Curled1r, Curled2r, Curled3r, Curled4r;                   //웅크린자 변형.
@@ -51,7 +55,7 @@ public class GameManagerJH : MonoBehaviour
     public FadeControl fadecontrol;
 
     //상수 지정. 수정 필요 시 여기서 하면 됨!
-    public Vector3 respawnPosition = new Vector3(2.15f, -6.76f, 0);
+    public Vector3 respawnPosition = new Vector3(2.15f, -6.76f, 0f);
     public Vector3 firstFloorPosition = new Vector3(-49.39f, -31.62f, 0f);
     public float MinimalY = -50.29f;
     public float noCheatY = -20.5f;
@@ -66,7 +70,9 @@ public class GameManagerJH : MonoBehaviour
     {
         dontCheat();
         felloff();
+        destroyStacks();
         makeAlarmActive();
+        
         gameClear();
         gameOver();
     }
@@ -103,7 +109,6 @@ public class GameManagerJH : MonoBehaviour
             Debug.Log("제한 시간을 출력합니다: " + (int)RootedTime);
             RootedTimeText.text = "" + (int)RootedTime;
 
-
             didOvercame(ranint);
 
             if (RootedTime <= 0)
@@ -116,6 +121,7 @@ public class GameManagerJH : MonoBehaviour
 
                 if (isovercame)                                              //탈출 조건을 만족할 시
                 {
+                    Debug.Log("rooted.overcame");
                     Btnclick.RightBtnClickCounter = 0;
                     Btnclick.LeftBtnClickCounter = 0;
                     Btnclick.JumpBtnClickCounter = 0;
@@ -127,6 +133,7 @@ public class GameManagerJH : MonoBehaviour
                 }
                 else
                 {
+                    Debug.Log("rooted.~overcame");
                     Btnclick.RightBtnClickCounter = 0;
                     Btnclick.LeftBtnClickCounter = 0;
                     Btnclick.JumpBtnClickCounter = 0;
@@ -178,15 +185,37 @@ public class GameManagerJH : MonoBehaviour
 
     public void respawn()
     {
-        fadecontrol.Fade();//화면 페이드아웃 -> 페이드인 코드;
-        Player.transform.position = respawnPosition;
+        fadecontrol.Fade();                             //화면 페이드아웃 -> 페이드인
+        Player.transform.position = respawnPosition;    //Player 위치 초기화
         HPManager.hp -= 1;
+        
+        Curled1r.SetActive(false);
+        Curled1.SetActive(true);
+        Curled2r.SetActive(false);
+        Curled2.SetActive(true);
+        Curled3r.SetActive(false);
+        Curled3.SetActive(true);
+        Curled4r.SetActive(false);
+        Curled4.SetActive(true);                        //Curled1,2,3,4 상태 초기화
+        isDoorActive = false;                           //문 상태 초기화
+        Trapdoor.SetActive(true);                       //트랩도어 상태 초기화
+        firstfloorPlatform.SetActive(true);
+        firstfloorThorn.SetActive(true);
+        anotherfloorPlatform.SetActive(false);
+        anotherfirstfloorThorn.SetActive(false);
+        //올 초기화. 필요할까?
+
+        StunTime = 16.5f;                                 //화면 꺼지는 시간 고려, 15초로 조정
+        Debug.Log("상태가 모두 초기화되었습니다.");
     }
 
     public void felloff() //맨 밑의 아래로 떨어졌을 때.(맵 이탈)
     {
         if (Player.transform.position.y < MinimalY)
+        {
             respawn();
+            Debug.Log("떨어졌어요...");
+        }     
     }
 
     public void dontCheat() //위층 문 안열고서 아래층으로 가서 날먹하려 할 때
@@ -194,7 +223,22 @@ public class GameManagerJH : MonoBehaviour
         if (!isDoorActive)
         {
             if (Player.transform.position.y < noCheatY)
+            {
                 respawn();
+                Debug.Log("dontcheat. 2층의 문을 열고 진행해주세요.");
+            }
+                
+        }
+    }
+    public void destroyStacks()
+    {
+        if (!Curled3.activeSelf)
+        {
+            firstfloorPlatform.SetActive(false);
+            firstfloorThorn.SetActive(false);
+            anotherfloorPlatform.SetActive(true);
+            anotherfirstfloorThorn.SetActive(true);
+            Debug.Log("destroyed Stacks");
         }
     }
 
@@ -206,6 +250,7 @@ public class GameManagerJH : MonoBehaviour
             !Curled4.activeSelf)
         {
             Trapdoor.SetActive(false);
+            Debug.Log("알람시계가 활성화되었습니다.");
         }
     }
 
@@ -214,8 +259,12 @@ public class GameManagerJH : MonoBehaviour
         if (isGameClear)
         {
             //ㅇㅋ 해놓다
+            StopAllCoroutines();
+            rigid.velocity = Vector2.zero;
+            rigid.gravityScale = 0f;
+            Debug.Log("꿈을 탈출했습니다...?");
             LoadManagerSH.singleTon.GameEnd();
-            Debug.Log("꿈을 탈출했습니다...?"); //메인 프로그래머님 다음 장면으로 연결해주시면 됩니다.
+             //메인 프로그래머님 다음 장면으로 연결해주시면 됩니다.
         }
             
     }
@@ -227,7 +276,12 @@ public class GameManagerJH : MonoBehaviour
             //페이드 아웃. 점프스케어도 할거면 한다.
             //메인 프로그래머님 다음 장면으로 연결해주시면 됩니다.
             //ㅇㅋ 해놓다
+            StopAllCoroutines();
+            rigid.velocity = Vector2.zero;
+            rigid.gravityScale = 0f;
+            Debug.Log("DEAD!");
             LoadManagerSH.singleTon.GameEnd();
+            
         }
     }
 

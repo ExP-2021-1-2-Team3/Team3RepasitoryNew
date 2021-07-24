@@ -42,6 +42,18 @@ public class TriggerEvent : MonoBehaviour
         if (realObject.name == "DoorIN")
             if (!game.Curled1.activeSelf && !game.Curled2.activeSelf)
                 game.touchedDoor = false;
+
+        if (realObject.name == "CurledupPlayer1")
+            game.touchedC1 = false;
+
+        if (realObject.name == "CurledupPlayer2")
+            game.touchedC2 = false;
+
+        if (realObject.name == "CurledupPlayer3")
+            game.touchedC3 = false;
+
+        if (realObject.name == "CurledupPlayer4")
+            game.touchedC4 = false;
     }
 
     public void OnCollisionEnter2D(Collision2D collision)
