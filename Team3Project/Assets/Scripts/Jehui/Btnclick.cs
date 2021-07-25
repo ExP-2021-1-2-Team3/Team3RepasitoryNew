@@ -9,7 +9,8 @@ public class Btnclick : MonoBehaviour
     [SerializeField] Rigidbody2D rigid;
     [SerializeField] Animator anim;
     [SerializeField] GameManagerJH game;
-    
+    [SerializeField] SoundManagerJH sound;
+
 
     public static int LeftBtnClickCounter = 0;
     public static int RightBtnClickCounter = 0;
@@ -18,6 +19,8 @@ public class Btnclick : MonoBehaviour
 
     public static bool isRightBtnDown = false;
     public static bool isLeftBtnDown = false;
+
+    public bool canPlayIntSound = false;
 
     /*
      * 이벤트 트리거를 이용할 수 있도록 코드를 짤 것이다.
@@ -91,24 +94,31 @@ public class Btnclick : MonoBehaviour
                     {                                                                                     
                         game.Curled1.SetActive(false);                               
                         game.Curled1r.SetActive(true);
+                        canPlayIntSound = true;
                     }
                     if (game.touchedC2)
                     {
                         game.Curled2.SetActive(false);
                         game.Curled2r.SetActive(true);
+                        canPlayIntSound = true;
                     }    
                     if (game.touchedC3)
                     {
                         game.Curled3.SetActive(false);
                         game.Curled3r.SetActive(true);
+                        canPlayIntSound = true;
                     }                                                                     
                     if (game.touchedC4)
                     {
                         game.Curled4.SetActive(false);
                         game.Curled4r.SetActive(true);
-                    }                                            
-                    if (game.touchedDoor)                                            //웅크린자 1, 2와 상호작용 성공한 후 -> 2층 문에 닿아있는 상태이면
-                        player.transform.position = game.firstFloorPosition;         //플레이어의 위치를 1층 문이 있는 곳으로 옮긴다.          
+                        canPlayIntSound = true;
+                    }
+                    if (game.touchedDoor)
+                    {                                                                //웅크린자 1, 2와 상호작용 성공한 후 -> 2층 문에 닿아있는 상태이면
+                        player.transform.position = game.firstFloorPosition;         //플레이어의 위치를 1층 문이 있는 곳으로 옮긴다.
+                        canPlayIntSound = true;
+                    }
                 }
                 else
                 {

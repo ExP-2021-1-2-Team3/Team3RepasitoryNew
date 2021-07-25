@@ -100,7 +100,7 @@ public class GameManagerJH : MonoBehaviour
     {
         isInRootedCoroutine = true;                                  //버튼 카운터를 활성화하기 위한 조건.
         RootedTimeText.color = new Color(255 / 255f, 0 / 255f, 0 / 255f, 255 / 255f);
-        rigid.velocity = Vector3.zero;                               //움직임 불가.
+        rigid.velocity = Vector2.zero;                               //움직임 불가.
 
         int ranint = Random.Range(1, 4);                                               //타이머 시작 이후 밑에 숨어있던 타이머가 게이머에게 보임.
         while (true)
@@ -122,7 +122,7 @@ public class GameManagerJH : MonoBehaviour
                 if (isovercame)                                              //탈출 조건을 만족할 시
                 {
                     Debug.Log("rooted.overcame");
-                    Btnclick.RightBtnClickCounter = 0;
+                    Btnclick.RightBtnClickCounter = 0;                       //초기화해주기
                     Btnclick.LeftBtnClickCounter = 0;
                     Btnclick.JumpBtnClickCounter = 0;
                     Btnclick.InteractionBtnClickCounter = 0;
@@ -134,7 +134,7 @@ public class GameManagerJH : MonoBehaviour
                 else
                 {
                     Debug.Log("rooted.~overcame");
-                    Btnclick.RightBtnClickCounter = 0;
+                    Btnclick.RightBtnClickCounter = 0;                       //만족 못해도 초기화다.
                     Btnclick.LeftBtnClickCounter = 0;
                     Btnclick.JumpBtnClickCounter = 0;
                     Btnclick.InteractionBtnClickCounter = 0;
