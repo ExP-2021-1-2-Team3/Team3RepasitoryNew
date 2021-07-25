@@ -36,7 +36,7 @@ public class TouchGlitch : MonoBehaviour
                     BoxCollider2D coll = touchedObject.GetComponent<BoxCollider2D>();
                     coll.enabled = false;
                     rigid.AddForce(new Vector2(Random.Range(-4, 4), 0),ForceMode2D.Impulse);
-                    rigid.AddTorque(Random.Range(4,20),ForceMode2D.Impulse);
+                    rigid.AddTorque(Random.Range(4,7),ForceMode2D.Impulse);
                     rigid.gravityScale = 1;
                     nowClickedGlitch++;
                     if (nowClickedGlitch >= glitchNumber)
