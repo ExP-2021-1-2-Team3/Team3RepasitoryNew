@@ -15,7 +15,7 @@ public class LoadManagerSH : MonoBehaviour
     [SerializeField]
     GameObject clockImageCanvas;
 
-    AudioSource ringAudio;
+    public AudioSource ringAudio;
     public int nextStage;
     bool gameEndCalled = false;
     // Start is called before the first frame update
