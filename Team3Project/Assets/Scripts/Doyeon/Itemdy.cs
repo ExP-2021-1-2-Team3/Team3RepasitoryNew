@@ -9,6 +9,7 @@ public class Itemdy : MonoBehaviour
         Score.ItemAmount += 1;
         ItemSound.ItemdySound();
         Destroy(gameObject);
+        //Instantiate(gameObject, new Vector3(x,y,z), Quaternion.identity);
     }
 
 }
