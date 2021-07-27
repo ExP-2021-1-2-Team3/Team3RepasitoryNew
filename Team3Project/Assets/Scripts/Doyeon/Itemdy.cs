@@ -4,12 +4,13 @@ using UnityEngine;
 
 public class Itemdy : MonoBehaviour
 {
+    [SerializeField] GameObject UIObject;
     private void OnTriggerEnter2D(Collider2D collision)
     {
         Score.ItemAmount += 1;
         ItemSound.ItemdySound();
+        UIObject.SetActive(true);
         Destroy(gameObject);
-        //Instantiate(gameObject, new Vector3(x,y,z), Quaternion.identity);
     }
 
 }
