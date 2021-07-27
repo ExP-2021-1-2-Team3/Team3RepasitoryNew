@@ -58,7 +58,11 @@ public class TriggerEvent : MonoBehaviour
 
     public void OnCollisionEnter2D(Collision2D collision)
     {
-        if (realObject.tag == "Thorns")        
-            game.respawn();        
+        if (realObject.tag == "Thorns")
+        {
+            Debug.Log(realObject.name + "에 닿아서 리스폰되었습니다.");
+            game.respawn();
+        }        
+            
     }
 }

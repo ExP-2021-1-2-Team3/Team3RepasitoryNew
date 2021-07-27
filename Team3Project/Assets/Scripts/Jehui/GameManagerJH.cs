@@ -123,9 +123,13 @@ public class GameManagerJH : MonoBehaviour
                 {
                     Debug.Log("rooted.overcame");
                     Btnclick.RightBtnClickCounter = 0;                       //초기화해주기
+                    Debug.Log("RightBtnClickCounter 초기화");
                     Btnclick.LeftBtnClickCounter = 0;
+                    Debug.Log("LeftBtnClickCounter 초기화");
                     Btnclick.JumpBtnClickCounter = 0;
+                    Debug.Log("JumpBtnClickCounter 초기화");
                     Btnclick.InteractionBtnClickCounter = 0;
+                    Debug.Log("InteractionBtnClickCounter 초기화");
                     RootedTime = 5;
                     isInRootedCoroutine = false;                             //이 시간이 다 되면 카운팅을 할 이유가 없다.
                     StartCoroutine(StunTimer());                             //탈출.바로 StunTimer 코루틴 시작;
@@ -134,10 +138,14 @@ public class GameManagerJH : MonoBehaviour
                 else
                 {
                     Debug.Log("rooted.~overcame");
-                    Btnclick.RightBtnClickCounter = 0;                       //만족 못해도 초기화다.
+                    Btnclick.RightBtnClickCounter = 0;                       //초기화해주기
+                    Debug.Log("RightBtnClickCounter 초기화");
                     Btnclick.LeftBtnClickCounter = 0;
+                    Debug.Log("LeftBtnClickCounter 초기화");
                     Btnclick.JumpBtnClickCounter = 0;
+                    Debug.Log("JumpBtnClickCounter 초기화");
                     Btnclick.InteractionBtnClickCounter = 0;
+                    Debug.Log("InteractionBtnClickCounter 초기화");
                     isInRootedCoroutine = false;
                     respawn();                                               //못할 시 리스폰 위치에서 리스폰.
                     StartCoroutine(StunTimer());                             //StunTimer 코루틴 시작.
@@ -206,6 +214,9 @@ public class GameManagerJH : MonoBehaviour
         //올 초기화. 필요할까?
 
         StunTime = 16.5f;                                 //화면 꺼지는 시간 고려, 15초로 조정
+        Debug.Log("stuntime 초기화.");
+        RootedTime = 5f;
+        Debug.Log("rootedtime 초기화.");
         Debug.Log("상태가 모두 초기화되었습니다.");
     }
 
@@ -262,7 +273,7 @@ public class GameManagerJH : MonoBehaviour
             StopAllCoroutines();
             rigid.velocity = Vector2.zero;
             rigid.gravityScale = 0f;
-            Debug.Log("꿈을 탈출했습니다...?");
+            Debug.Log("다음 꿈으로 빠집니다...");
             LoadManagerSH.singleTon.GameEnd();
              //메인 프로그래머님 다음 장면으로 연결해주시면 됩니다.
         }
