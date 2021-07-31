@@ -14,6 +14,7 @@ public class MainGameHS : MonoBehaviour
     [SerializeField] public int maxLetter;
     //글자 스폰 주기
     [SerializeField] public float period = 0.1f;
+    [SerializeField] public float blink_period = 0.15f;
     
     //여기는 인스펙터에서 건드리면 안되는 변수들(어짜피 private)
     private string[] game = {"BOOK","BEAR","ALARM",""};
@@ -62,13 +63,13 @@ public class MainGameHS : MonoBehaviour
                     background.sprite = Resources.Load<Sprite>("HS_1");
                     break;
                 case 1:
-                    background.sprite = Resources.Load<Sprite>("HS_2");
+                    StartCoroutine(TransitionBackground("HS_1", "HS_2"));
                     break;
                 case 2:
-                    background.sprite = Resources.Load<Sprite>("HS_3");
+                    StartCoroutine(TransitionBackground("HS_2", "HS_3"));
                     break;
                 case 3:
-                    background.sprite = Resources.Load<Sprite>("HS_4");
+                    StartCoroutine(TransitionBackground("HS_3", "HS_4"));
                     break;
                 default:
                     break;
@@ -99,6 +100,16 @@ public class MainGameHS : MonoBehaviour
         StartCoroutine(WaitForSoundEffect());
     }
     
+    IEnumerator TransitionBackground(string from, string to){
+        Sprite sfrom = Resources.Load<Sprite>(from);
+        Sprite sto = Resources.Load<Sprite>(to);
+        background.sprite = sto;
+        yield return new WaitForSeconds(blink_period);
+        background.sprite = sfrom;
+        yield return new WaitForSeconds(blink_period);
+        background.sprite = sto;
+    }
+
     IEnumerator WaitForSoundEffect(){
         yield return new WaitForSeconds(2.0f);
         LoadManagerSH.singleTon.GameEnd();
