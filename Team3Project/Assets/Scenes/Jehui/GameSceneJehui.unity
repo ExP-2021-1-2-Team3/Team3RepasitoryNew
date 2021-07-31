@@ -1344,7 +1344,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &34961801
 Transform:
   m_ObjectHideFlags: 0
@@ -7388,32 +7388,13 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 235997750}
-  - component: {fileID: 235997749}
   m_Layer: 0
-  m_Name: SoundManagerJH
+  m_Name: BgSoundManagerJH
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &235997749
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 235997748}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f8a1af258de1cc54fbb2c23fbfa5f588, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  audioMove: {fileID: 366191389}
-  audioInteract: {fileID: 510849399}
-  moveSound: {fileID: 366191390}
-  InteractSound: {fileID: 510849400}
-  player: {fileID: 834880821}
-  button: {fileID: 446740739}
 --- !u!4 &235997750
 Transform:
   m_ObjectHideFlags: 0
@@ -14854,7 +14835,7 @@ MonoBehaviour:
   rigid: {fileID: 834880817}
   anim: {fileID: 834880818}
   game: {fileID: 954587127}
-  sound: {fileID: 235997749}
+  sound: {fileID: 0}
   canPlayIntSound: 0
 --- !u!114 &446740740
 MonoBehaviour:
@@ -28154,7 +28135,7 @@ MonoBehaviour:
   anim: {fileID: 834880818}
   sRenderer: {fileID: 834880815}
   rigid: {fileID: 834880817}
-  sound: {fileID: 235997749}
+  sound: {fileID: 0}
   jumpPower: 20
   horizontalVec: 0
   acceleration: 10
@@ -36995,7 +36976,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1095087594
 RectTransform:
   m_ObjectHideFlags: 0
@@ -37197,7 +37178,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1101005990
 Transform:
   m_ObjectHideFlags: 0
@@ -38707,7 +38688,7 @@ MonoBehaviour:
   rigid: {fileID: 834880817}
   anim: {fileID: 834880818}
   game: {fileID: 954587127}
-  sound: {fileID: 235997749}
+  sound: {fileID: 0}
   canPlayIntSound: 0
 --- !u!114 &1144436948
 MonoBehaviour:
@@ -48046,7 +48027,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1395694856
 Transform:
   m_ObjectHideFlags: 0
@@ -55295,7 +55276,7 @@ AudioSource:
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -57814,7 +57795,7 @@ MonoBehaviour:
   rigid: {fileID: 834880817}
   anim: {fileID: 834880818}
   game: {fileID: 954587127}
-  sound: {fileID: 235997749}
+  sound: {fileID: 0}
   canPlayIntSound: 0
 --- !u!114 &1651249768
 MonoBehaviour:
@@ -69492,7 +69473,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &2036113814
 Transform:
   m_ObjectHideFlags: 0
@@ -70575,7 +70556,7 @@ MonoBehaviour:
   rigid: {fileID: 834880817}
   anim: {fileID: 834880818}
   game: {fileID: 954587127}
-  sound: {fileID: 235997749}
+  sound: {fileID: 0}
   canPlayIntSound: 0
 --- !u!1 &2060883346
 GameObject:

@@ -74,7 +74,7 @@ public class GameManagerJH : MonoBehaviour
         makeAlarmActive();
         
         gameClear();
-        gameOver();
+        //gameOver();
     }
     IEnumerator StunTimer() //스턴까지 남은 시간 잰다.
     {
@@ -195,7 +195,7 @@ public class GameManagerJH : MonoBehaviour
     {
         fadecontrol.Fade();                             //화면 페이드아웃 -> 페이드인
         Player.transform.position = respawnPosition;    //Player 위치 초기화
-        HPManager.hp -= 1;
+        //HPManager.hp -= 1;
         
         Curled1r.SetActive(false);
         Curled1.SetActive(true);
@@ -280,7 +280,7 @@ public class GameManagerJH : MonoBehaviour
             
     }
 
-    public void gameOver()
+    /*public void gameOver()
     {
         if (HPManager.hp == 0)
         {
@@ -294,7 +294,7 @@ public class GameManagerJH : MonoBehaviour
             LoadManagerSH.singleTon.GameEnd();
             
         }
-    }
+    }*/
 
     /*(public void OnGameExit()
     {

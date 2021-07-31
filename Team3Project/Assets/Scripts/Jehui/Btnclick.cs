@@ -9,7 +9,7 @@ public class Btnclick : MonoBehaviour
     [SerializeField] Rigidbody2D rigid;
     [SerializeField] Animator anim;
     [SerializeField] GameManagerJH game;
-    [SerializeField] SoundManagerJH sound;
+    [SerializeField] BgSoundManagerJH sound;
 
 
     public static int LeftBtnClickCounter = 0;

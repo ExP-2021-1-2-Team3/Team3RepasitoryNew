@@ -7,7 +7,7 @@ public class Player : MonoBehaviour
     public Animator anim;               //플레이어의 애니메이션 관장
     public SpriteRenderer sRenderer;    //플레이어의 스프라이트렌더러 관장
     public Rigidbody2D rigid;           //플레이어 강체화
-    public SoundManagerJH sound;
+    public BgSoundManagerJH sound;
     public float jumpPower;             //플레이어 점프시 가할 힘 설정 필요
     public float horizontalVec;         //필요한건 수평방향 벡터만 설정해주면 됨.
     public float acceleration = 1.5f;
