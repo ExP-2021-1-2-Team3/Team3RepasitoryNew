@@ -16,11 +16,20 @@ public class MainSceneManagerSH : MonoBehaviour
     GameObject normalBackGround;
 
     [SerializeField]
+    GameObject settingCanvas;
+
+    [SerializeField]
     GameObject[] glitchArray;
     void Start()
     {
         loadManager = LoadManagerSH.singleTon;
         MakeGlitch();
+    }
+
+    public void OnSettingButton(bool active)
+    {
+        uiCanvas.SetActive(!active);
+        settingCanvas.SetActive(active);
     }
 
     public void GameStartButton()

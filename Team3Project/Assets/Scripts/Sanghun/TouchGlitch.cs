@@ -13,7 +13,7 @@ public class TouchGlitch : MonoBehaviour
     public GameObject glitchParent;
     public GameObject fadeObject;
     public GameObject titleObject;
-    public GameObject dawnObject;
+    public GameObject[] dawnObject;
     public Transform clockObject;
     AudioSource audioSource;
     // Start is called before the first frame update
@@ -64,14 +64,36 @@ public class TouchGlitch : MonoBehaviour
         yield return new WaitForSeconds(2f);
         fadeObject.SetActive(false);
         float timer = 0;
-        dawnObject.SetActive(true);
+        dawnObject[0].SetActive(true);
         clockObject.gameObject.SetActive(true);
-        while (timer < 4)
+        while (timer < 1)
         {
             timer += Time.deltaTime;
             clockObject.localPosition = new Vector3(Random.Range(-0.1f, 0.1f), Random.Range(-0.1f, 0.1f), 0);
             yield return null;
         }
+        timer = 0;
+        dawnObject[0].SetActive(false);
+        dawnObject[1].SetActive(true);
+        while (timer < 1)
+        {
+            timer += Time.deltaTime;
+            clockObject.localPosition = new Vector3(Random.Range(-0.1f, 0.1f), Random.Range(-0.1f, 0.1f), 0);
+            yield return null;
+        }
+        timer = 0;
+        dawnObject[1].SetActive(false);
+        dawnObject[2].SetActive(true);
+        while (timer < 1)
+        {
+            timer += Time.deltaTime;
+            clockObject.localPosition = new Vector3(Random.Range(-0.1f, 0.1f), Random.Range(-0.1f, 0.1f), 0);
+            yield return null;
+        }
+        timer = 0;
+        dawnObject[2].SetActive(false);
+
+
         
         
         fadeObject.SetActive(true);
