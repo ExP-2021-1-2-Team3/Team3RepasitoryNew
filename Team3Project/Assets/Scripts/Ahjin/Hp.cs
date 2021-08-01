@@ -6,7 +6,7 @@ public class Hp : MonoBehaviour
 {
     public GameObject hp1, hp2, hp3, hands;
     public AudioSource audioSource;
-    public FadeOutAnim fadeoutanim;
+    public FadeManager fademanager;
     public static int health;
     const string obsTag = "obs";
     bool ended = false; //ªÛ»∆¿Ã∞°æ∏.
@@ -53,11 +53,11 @@ public class Hp : MonoBehaviour
                 hands.gameObject.SetActive(false);
                 break;
         }
-        if (health <= 0 && !ended)
+        if (health <= 0)
         {
-            ended = true;
             audioSource.Play();
-            LoadManagerSH.singleTon.GameEnd();
+            fademanager.FadeOut();
+            //LoadManagerSH.singleTon.GameEnd();
         }
     }
 
