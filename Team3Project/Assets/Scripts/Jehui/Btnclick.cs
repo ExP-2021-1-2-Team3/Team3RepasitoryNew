@@ -9,7 +9,7 @@ public class Btnclick : MonoBehaviour
     [SerializeField] Rigidbody2D rigid;
     [SerializeField] Animator anim;
     [SerializeField] GameManagerJH game;
-    [SerializeField] BgSoundManagerJH sound;
+    //[SerializeField] BgSoundManagerJH sound;
 
 
     public static int LeftBtnClickCounter = 0;
@@ -90,34 +90,44 @@ public class Btnclick : MonoBehaviour
             case "Interaction":
                 if (!game.isInRootedCoroutine)
                 {
-                    if (game.touchedC1)
-                    {                                                                                     
-                        game.Curled1.SetActive(false);                               
-                        game.Curled1r.SetActive(true);
-                        canPlayIntSound = true;
-                    }
-                    if (game.touchedC2)
+                    if (game.touchedLever1)
                     {
-                        game.Curled2.SetActive(false);
-                        game.Curled2r.SetActive(true);
-                        canPlayIntSound = true;
+                        game.lever1.SetActive(false);
+                        game.lever1r.SetActive(true);
+                        StartCoroutine(game.RootedTimer());                
+                        //canPlayIntSound = true;
+                    }
+                    if (game.touchedLever2)
+                    {
+                        game.lever2.SetActive(false);
+                        game.lever2r.SetActive(true);
+                        StartCoroutine(game.RootedTimer());                   
+                        //canPlayIntSound = true;
                     }    
-                    if (game.touchedC3)
+                    if (game.touchedLever3)
                     {
-                        game.Curled3.SetActive(false);
-                        game.Curled3r.SetActive(true);
-                        canPlayIntSound = true;
+                        game.lever3.SetActive(false);
+                        game.lever3r.SetActive(true);
+                        StartCoroutine(game.RootedTimer());                        
+                        //canPlayIntSound = true;
                     }                                                                     
-                    if (game.touchedC4)
-                    {
-                        game.Curled4.SetActive(false);
-                        game.Curled4r.SetActive(true);
-                        canPlayIntSound = true;
+                    if (game.touchedLever4)
+                    {                        
+                        game.lever4.SetActive(false);
+                        game.lever4r.SetActive(true);
+                        StartCoroutine(game.RootedTimer());
+                        //canPlayIntSound = true;
                     }
+                    /*if (game.touchedTestLever)
+                    {
+                        game.testLever.SetActive(false);
+                        game.testLeverr.SetActive(true);
+                        StartCoroutine(game.RootedTimer());
+                    }*/
                     if (game.touchedDoor)
                     {                                                                //웅크린자 1, 2와 상호작용 성공한 후 -> 2층 문에 닿아있는 상태이면
                         player.transform.position = game.firstFloorPosition;         //플레이어의 위치를 1층 문이 있는 곳으로 옮긴다.
-                        canPlayIntSound = true;
+                        //canPlayIntSound = true;
                     }
                 }
                 else

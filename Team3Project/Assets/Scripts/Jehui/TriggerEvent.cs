@@ -9,21 +9,27 @@ public class TriggerEvent : MonoBehaviour
     //게임 내에서 
     public void OnTriggerStay2D(Collider2D collision)
     {
-        if (realObject.name == "CurledupPlayer1")
-            game.touchedC1 = true;
+        if (realObject.name == "Lever1")
+            game.touchedLever1 = true;
         
-        if (realObject.name == "CurledupPlayer2")        
-            game.touchedC2 = true;
+        if (realObject.name == "Lever2")        
+            game.touchedLever2 = true;
         
-        if (realObject.name == "CurledupPlayer3")       
-            game.touchedC3 = true;
+        if (realObject.name == "Lever3")       
+            game.touchedLever3 = true;
         
-        if (realObject.name == "CurledupPlayer4")        
-            game.touchedC4 = true;
+        if (realObject.name == "Lever4")        
+            game.touchedLever4 = true;
 
+        /*if (realObject.name == "testLever")
+        {
+            game.touchedTestLever = true;
+            Debug.Log("touchedTestLever true");
+        }*/
+            
 
         if (realObject.name == "DoorIN")
-            if (!game.Curled1.activeSelf && !game.Curled2.activeSelf)
+            if (!game.lever1.activeSelf && !game.lever2.activeSelf)
             {
                 game.isDoorActive = true;
                 game.touchedDoor = true;
@@ -40,20 +46,23 @@ public class TriggerEvent : MonoBehaviour
     public void OnTriggerExit2D(Collider2D collision)
     {
         if (realObject.name == "DoorIN")
-            if (!game.Curled1.activeSelf && !game.Curled2.activeSelf)
+            if (!game.lever1.activeSelf && !game.lever2.activeSelf)
                 game.touchedDoor = false;
 
-        if (realObject.name == "CurledupPlayer1")
-            game.touchedC1 = false;
+        if (realObject.name == "Lever1")
+            game.touchedLever1 = false;
 
-        if (realObject.name == "CurledupPlayer2")
-            game.touchedC2 = false;
+        if (realObject.name == "Lever2")
+            game.touchedLever2 = false;
 
-        if (realObject.name == "CurledupPlayer3")
-            game.touchedC3 = false;
+        if (realObject.name == "Lever3")
+            game.touchedLever3 = false;
 
-        if (realObject.name == "CurledupPlayer4")
-            game.touchedC4 = false;
+        if (realObject.name == "Lever4")
+            game.touchedLever4 = false;
+
+        /*if (realObject.name == "testLever")
+            game.touchedTestLever = false;*/
     }
 
     public void OnCollisionEnter2D(Collision2D collision)
