@@ -16,7 +16,6 @@ public class Obs : MonoBehaviour
         p1 = transform.position;
         p2 = new Vector3(0, 0, 0);
         Vector3 myPosition = new Vector3(0, 0, 0);
-        transform.position = myPosition;
     }
 
     void Update()

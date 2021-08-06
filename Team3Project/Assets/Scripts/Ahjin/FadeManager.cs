@@ -17,6 +17,7 @@ public class FadeManager : MonoBehaviour
         {
             time = 0;
             gameObject.SetActive(false);
+            LoadManagerSH.singleTon.LoadGameScene();
         }
         time += Time.deltaTime;
 
