@@ -140,7 +140,7 @@ public class GameManagerJH : MonoBehaviour
                     Debug.Log("BtnClickCounter 초기화");
                     RootedTime = 3;
                     isInRootedCoroutine = false;                             //이 시간이 다 되면 카운팅을 할 이유가 없다.
-                    //StartCoroutine(StunTimer());                             //탈출.바로 StunTimer 코루틴 시작;
+                    //StartCoroutine(StunTimer());                           
                     break;
                 }
                 else
@@ -153,14 +153,35 @@ public class GameManagerJH : MonoBehaviour
                     Debug.Log("BtnClickCounter 초기화");
                     isInRootedCoroutine = false;
                     respawn();                                               //못할 시 리스폰 위치에서 리스폰.
-                    //StartCoroutine(StunTimer());                             //StunTimer 코루틴 시작.
+                    //StartCoroutine(StunTimer());                           
                     break;
                 }
             }
             else
-                //yield return new WaitForSeconds(0.5f);
-                yield return null;
-            //부울변수 둔게 true면 startcoroutine stuntimer
+            {                
+                //yield return new WaitForSeconds(0.5f);                                
+                if (isovercame)                                             //3초가 되지 않아도, overcame했을 경우
+                {
+                    RootedTimeText.color = new Color(255 / 255f, 0 / 255f, 0 / 255f, 0 / 255f);
+                    RightBtn.GetComponent<Image>().color = new Color(255 / 255f, 255 / 255f, 255 / 255f, 100 / 255f);
+                    LeftBtn.GetComponent<Image>().color = new Color(255 / 255f, 255 / 255f, 255 / 255f, 100 / 255f);
+                    JumpBtn.GetComponent<Image>().color = new Color(255 / 255f, 255 / 255f, 255 / 255f, 100 / 255f);
+                    InteractionBtn.GetComponent<Image>().color = new Color(255 / 255f, 255 / 255f, 255 / 255f, 100 / 255f);
+
+                    Debug.Log("rooted.overcame");
+                    Btnclick.RightBtnClickCounter = 0;                       //초기화해주기
+                    Btnclick.LeftBtnClickCounter = 0;
+                    Btnclick.JumpBtnClickCounter = 0;
+                    Btnclick.InteractionBtnClickCounter = 0;
+                    Debug.Log("BtnClickCounter 초기화");
+                    RootedTime = 3;
+                    isInRootedCoroutine = false;
+                    break;
+                }                    
+                else
+                    yield return null;
+            }
+                
         }
         
     }
