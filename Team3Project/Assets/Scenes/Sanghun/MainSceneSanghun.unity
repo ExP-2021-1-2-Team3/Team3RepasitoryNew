@@ -573,7 +573,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 198521065}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 374734210}
+        m_MethodName: OnCredtButton
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
 --- !u!114 &198521065
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1087,6 +1098,8 @@ MonoBehaviour:
   maskParent: {fileID: 210010811}
   normalBackGround: {fileID: 1511868429}
   settingCanvas: {fileID: 1239398536}
+  creditCanvas: {fileID: 713953394}
+  glitchTitle: {fileID: 91842304}
   glitchArray:
   - {fileID: 1241745345}
   - {fileID: 1567628359}
@@ -2135,7 +2148,7 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 374734210}
-          m_MethodName: OnSettingButton
+          m_MethodName: OnCredtButton
           m_Mode: 6
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -4832,10 +4845,9 @@ MonoBehaviour:
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
-    m_VerticalOverflow: 0
+    m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: "Setting\n\uB2A6\uC740 \uBC24, \uB0B4\uAC00 \uD560 \uC218 \uC788\uB294\n\uAC83\uC740
-    \uC544\uBB34\uAC83\uB3C4 \uC5C6\uC5C8\uB2E4.\n"
+  m_Text: "Credit\n\uAE30\uD68D-\uC870\uC7A5\uD638,\uC774\uC815\uD6C8\r\n\uADF8\uB798\uD53D-\uBC15\uC724\uC9C0,\uC774\uC720\uC9C4\r\n\uD504\uB85C\uADF8\uB798\uBC0D\uC815\uC0C1\uD6C8,\uAE40\uB3C4\uC5F0,\uAE40\uD604\uC218,\r\n\uAE40\uD76C\uC218,\uBC31\uC544\uC9C4,\uC774\uC81C\uD76C\r\n\uC0AC\uC6B4\uB4DC-\uAE40\uC218\uC9C4"
 --- !u!222 &1959419505
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4976,6 +4988,7 @@ MonoBehaviour:
   fadeCanvas: {fileID: 2072625530}
   clockButtonCanvas: {fileID: 1975112816}
   clockImageCanvas: {fileID: 240801394}
+  glitchTitle: {fileID: 0}
   ringAudio: {fileID: 0}
   nextStage: 0
 --- !u!4 &1990889052

@@ -17,12 +17,21 @@ public class MainSceneManagerSH : MonoBehaviour
 
     [SerializeField]
     GameObject settingCanvas;
+    [SerializeField]
+    GameObject creditCanvas;
+    [SerializeField]
+    SpriteRenderer glitchTitle;
 
     [SerializeField]
     GameObject[] glitchArray;
     void Start()
     {
         loadManager = LoadManagerSH.singleTon;
+        if (loadManager.nextStage == 5)
+        {
+                glitchTitle.sortingOrder = 4;
+
+        }
         MakeGlitch();
     }
 
@@ -30,6 +39,12 @@ public class MainSceneManagerSH : MonoBehaviour
     {
         uiCanvas.SetActive(!active);
         settingCanvas.SetActive(active);
+    }
+
+    public void OnCredtButton(bool active)
+    {
+        uiCanvas.SetActive(!active);
+        creditCanvas.SetActive(active);
     }
 
     public void GameStartButton()

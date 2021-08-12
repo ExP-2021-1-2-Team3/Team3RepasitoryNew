@@ -15,7 +15,7 @@ public class LoadManagerSH : MonoBehaviour
     [SerializeField]
     GameObject clockImageCanvas;
 
-    public AudioSource ringAudio;
+public AudioSource ringAudio;
     public int nextStage;
     bool gameEndCalled = false;
     // Start is called before the first frame update
@@ -43,7 +43,8 @@ public class LoadManagerSH : MonoBehaviour
             PlayerPrefs.Save();
         }
         //nextStage = PlayerPrefs.GetInt("Stage");
-        nextStage = 3;
+        nextStage = 5;
+
         StartCoroutine(GameStartCor(false));
 
     }
