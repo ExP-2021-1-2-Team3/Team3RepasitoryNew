@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+/*
 public class PlayerMovement : MonoBehaviour
 {
     public float speed;
@@ -72,10 +72,10 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetButtonDown("Horizontal"))
             spriteRenderer.flipX = Input.GetAxisRaw("Horizontal") == -1;
 
-        /*if (rigid.velocity.normalized.x == 0)
+        if (rigid.velocity.normalized.x == 0)
             anim.SetBool("isMoving", false);
         else
-            anim.SetBool("isMoving", true);*/
+            anim.SetBool("isMoving", true);
 
     }
 
@@ -89,7 +89,7 @@ public class PlayerMovement : MonoBehaviour
         anim.SetBool("isJumping", true);
     }
 
-    /*public void FixedUpdate()
+    public void FixedUpdate()
     {
         //rigid.AddForce(Vector2.right * h * maxSpeed, ForceMode2D.Impulse);
 
@@ -107,6 +107,7 @@ public class PlayerMovement : MonoBehaviour
         }
     }
     
-    */
+    
 
 }
+*/

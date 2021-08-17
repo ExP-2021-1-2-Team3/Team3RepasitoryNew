@@ -9,8 +9,9 @@ public class Btnclick : MonoBehaviour
     [SerializeField] Rigidbody2D rigid;
     [SerializeField] Animator anim;
     [SerializeField] GameManagerJH game;
-    //[SerializeField] BgSoundManagerJH sound;
-
+    [SerializeField] AudioSource soundClick;
+    public AudioClip clipClick;
+    public AudioClip clipInt;
 
     public static int LeftBtnClickCounter = 0;
     public static int RightBtnClickCounter = 0;
@@ -60,6 +61,7 @@ public class Btnclick : MonoBehaviour
                 {
                     LeftBtnClickCounter++;
                     Debug.Log("왼쪽 클릭 수: " + LeftBtnClickCounter);
+                    soundClick.PlayOneShot(clipClick);
                 }
                 break;
 
@@ -68,6 +70,7 @@ public class Btnclick : MonoBehaviour
                 {
                     RightBtnClickCounter++;
                     Debug.Log("오른쪽 클릭 수: " + RightBtnClickCounter);
+                    soundClick.PlayOneShot(clipClick);
                 }                   
                 break;
 
@@ -84,6 +87,7 @@ public class Btnclick : MonoBehaviour
                 {                
                     JumpBtnClickCounter++;
                     Debug.Log("점프 클릭 수: " + JumpBtnClickCounter);
+                    soundClick.PlayOneShot(clipClick);
                 }                  
                 break;
 
@@ -94,29 +98,29 @@ public class Btnclick : MonoBehaviour
                     {
                         game.lever1.SetActive(false);
                         game.lever1r.SetActive(true);
-                        StartCoroutine(game.RootedTimer());                
-                        //canPlayIntSound = true;
+                        StartCoroutine(game.RootedTimer());
+                        soundClick.PlayOneShot(clipInt);
                     }
                     if (game.touchedLever2)
                     {
                         game.lever2.SetActive(false);
                         game.lever2r.SetActive(true);
-                        StartCoroutine(game.RootedTimer());                   
-                        //canPlayIntSound = true;
+                        StartCoroutine(game.RootedTimer());
+                        soundClick.PlayOneShot(clipInt);
                     }    
                     if (game.touchedLever3)
                     {
                         game.lever3.SetActive(false);
                         game.lever3r.SetActive(true);
-                        StartCoroutine(game.RootedTimer());                        
-                        //canPlayIntSound = true;
+                        StartCoroutine(game.RootedTimer());
+                        soundClick.PlayOneShot(clipInt);
                     }                                                                     
                     if (game.touchedLever4)
                     {                        
                         game.lever4.SetActive(false);
                         game.lever4r.SetActive(true);
                         StartCoroutine(game.RootedTimer());
-                        //canPlayIntSound = true;
+                        soundClick.PlayOneShot(clipInt);
                     }
                     /*if (game.touchedTestLever)
                     {
@@ -127,13 +131,14 @@ public class Btnclick : MonoBehaviour
                     if (game.touchedDoor)
                     {                                                                //웅크린자 1, 2와 상호작용 성공한 후 -> 2층 문에 닿아있는 상태이면
                         player.transform.position = game.firstFloorPosition;         //플레이어의 위치를 1층 문이 있는 곳으로 옮긴다.
-                        //canPlayIntSound = true;
+                        canPlayIntSound = true;
                     }
                 }
                 else
                 {
                     InteractionBtnClickCounter++;
                     Debug.Log("인터랙션 클릭 수: " + InteractionBtnClickCounter);
+                    soundClick.PlayOneShot(clipClick);
                 }
                 break;
 
