@@ -14,10 +14,10 @@ public class GlitchObjectFloor : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(transform.position.y < -4)
+        if(transform.position.y < -8)
         {
             rigid.velocity = Vector2.zero;
-            transform.position = new Vector3(transform.position.x, -4, transform.position.z);
+            transform.position = new Vector3(transform.position.x, -8, transform.position.z);
         }
         if(transform.position.x > 9)
         {

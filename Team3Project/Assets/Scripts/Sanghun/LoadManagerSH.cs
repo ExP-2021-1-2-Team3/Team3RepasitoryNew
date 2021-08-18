@@ -43,7 +43,7 @@ public AudioSource ringAudio;
             PlayerPrefs.Save();
         }
         //nextStage = PlayerPrefs.GetInt("Stage");
-        nextStage = 5;
+        nextStage = 4;
 
         StartCoroutine(GameStartCor(false));
 
@@ -134,6 +134,22 @@ public AudioSource ringAudio;
         }
         Debug.Log("뭐야");
         gameEndCalled = true;
+        if (nextStage <= 3)
+        {
+            clockButtonCanvas.transform.GetChild(1).gameObject.SetActive(false);
+            clockImageCanvas.transform.GetChild(1).gameObject.SetActive(false);
+            clockButtonCanvas.transform.GetChild(0).gameObject.SetActive(true);
+            clockImageCanvas.transform.GetChild(0).gameObject.SetActive(true);
+
+        }
+        else
+        {
+            clockButtonCanvas.transform.GetChild(0).gameObject.SetActive(false);
+            clockImageCanvas.transform.GetChild(0).gameObject.SetActive(false);
+            clockButtonCanvas.transform.GetChild(1).gameObject.SetActive(true);
+            clockImageCanvas.transform.GetChild(1).gameObject.SetActive(true);
+
+        }
         clockButtonCanvas.SetActive(true);
     }
 
@@ -147,7 +163,14 @@ public AudioSource ringAudio;
     public IEnumerator ClockRingCor()
     {
         RectTransform rect = clockImageCanvas.transform.GetChild(0).GetComponent<RectTransform>();
-
+        if (nextStage <= 3)
+        {
+            rect = clockImageCanvas.transform.GetChild(0).GetComponent<RectTransform>();
+        }
+        else
+        {
+            rect = clockImageCanvas.transform.GetChild(1).GetComponent<RectTransform>();
+        }
         float x = 0;
         float y = 0;
         float timer = 0;
