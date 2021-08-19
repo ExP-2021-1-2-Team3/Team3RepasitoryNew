@@ -24,8 +24,6 @@ public class MainSceneManagerSH : MonoBehaviour
 
     [SerializeField]
     GameObject[] glitchArray;
-    [SerializeField]
-    GameObject[] glitchAnimationArray;
     void Start()
     {
         loadManager = LoadManagerSH.singleTon;
@@ -76,117 +74,112 @@ public class MainSceneManagerSH : MonoBehaviour
             
             return;
         }
-        //StartCoroutine(GlitchCoroutine(nextStage - 1));
+        StartCoroutine(GlitchCoroutine(nextStage - 1));
     }
 
-    void ActiveGlitchAnimation(int index,bool active)
+    IEnumerator GlitchCoroutine(int index)
     {
-        glitchAnimationArray[index].SetActive(active);
-    }
+        SpriteRenderer[] childrens = new SpriteRenderer[3];
+        Debug.Log("여러번");
+        yield return new WaitForSeconds(3f);
+        for (int i = 0; i < index; i++)
+        {
+            childrens[i] = glitchArray[i].GetComponent<SpriteRenderer>();
+            //childrens[i].gameObject.SetActive(true);
+        }
+        while (true)
+        {
 
-    //IEnumerator GlitchCoroutine(int index)
-    //{
-    //    SpriteRenderer[] childrens = new SpriteRenderer[3];
-    //    Debug.Log("여러번");
-    //    yield return new WaitForSeconds(3f);
-    //    for (int i = 0; i < index; i++)
-    //    {
-    //        childrens[i] = glitchArray[i].GetComponent<SpriteRenderer>();
-    //        //childrens[i].gameObject.SetActive(true);
-    //    }
-    //    while (true)
-    //    {
+            //for (int j = 0; j < index; j++)
+            //{
+            //    childrens[j].gameObject.SetActive(true);
+            //    //childrens[j].color = new Color(1, 1, 1, Random.Range(0, 1f));
+            //}
+            //for (int i = 0; i < index; i++)
+            //{
+            //    childrens[i].color = new Color(1, 1, 1, Random.Range(0, 1f));
+            //    for (int j = 0; j < 4 * (nextStage - 1); j++)
+            //    {
+            //        if (Random.Range(0, 2) == 0)
+            //        {
+            //            continue;
+            //        }
+            //        maskParent.transform.GetChild(j).gameObject.SetActive(true);
+            //    }
+            //    yield return new WaitForSeconds(5f);
+            //    for (int j = 0; j < 4 * (nextStage - 1); j++)
+            //    {
+            //        maskParent.transform.GetChild(j).gameObject.SetActive(false);
+            //    }
+            //    for(int j = 0; j < index; j++)
+            //    {
+            //        childrens[j].gameObject.SetActive(false);
+            //    }
+            //}
 
-    //        //for (int j = 0; j < index; j++)
-    //        //{
-    //        //    childrens[j].gameObject.SetActive(true);
-    //        //    //childrens[j].color = new Color(1, 1, 1, Random.Range(0, 1f));
-    //        //}
-    //        //for (int i = 0; i < index; i++)
-    //        //{
-    //        //    childrens[i].color = new Color(1, 1, 1, Random.Range(0, 1f));
-    //        //    for (int j = 0; j < 4 * (nextStage - 1); j++)
-    //        //    {
-    //        //        if (Random.Range(0, 2) == 0)
-    //        //        {
-    //        //            continue;
-    //        //        }
-    //        //        maskParent.transform.GetChild(j).gameObject.SetActive(true);
-    //        //    }
-    //        //    yield return new WaitForSeconds(5f);
-    //        //    for (int j = 0; j < 4 * (nextStage - 1); j++)
-    //        //    {
-    //        //        maskParent.transform.GetChild(j).gameObject.SetActive(false);
-    //        //    }
-    //        //    for(int j = 0; j < index; j++)
-    //        //    {
-    //        //        childrens[j].gameObject.SetActive(false);
-    //        //    }
-    //        //}
+            for (int j = 0; j < 4 * (nextStage - 1); j++)
+            {
+                maskParent.transform.GetChild(j).gameObject.SetActive(true);
+            }
+            childrens[0].gameObject.SetActive(true);
+             yield return null; yield return null; yield return null;
+            childrens[0].gameObject.SetActive(false);
+            childrens[1].gameObject.SetActive(true);
+            for (int j = 0; j < 4 * (nextStage - 1); j++)
+            {
+                maskParent.transform.GetChild(j).gameObject.SetActive(false);
+            }
 
-    //        for (int j = 0; j < 4 * (nextStage - 1); j++)
-    //        {
-    //            maskParent.transform.GetChild(j).gameObject.SetActive(true);
-    //        }
-    //        childrens[0].gameObject.SetActive(true);
-    //         yield return null; yield return null; yield return null;
-    //        childrens[0].gameObject.SetActive(false);
-    //        childrens[1].gameObject.SetActive(true);
-    //        for (int j = 0; j < 4 * (nextStage - 1); j++)
-    //        {
-    //            maskParent.transform.GetChild(j).gameObject.SetActive(false);
-    //        }
+            for (int j = 4 * (nextStage - 1); j < 4 * (nextStage); j++)
+            {
+                maskParent.transform.GetChild(j).gameObject.SetActive(true);
+            }
 
-    //        for (int j = 4 * (nextStage - 1); j < 4 * (nextStage); j++)
-    //        {
-    //            maskParent.transform.GetChild(j).gameObject.SetActive(true);
-    //        }
+            yield return null; yield return null; yield return null;
+            childrens[1].gameObject.SetActive(false);
+            for (int j = 4 * (nextStage - 1); j < 4 * (nextStage); j++)
+            {
+                maskParent.transform.GetChild(j).gameObject.SetActive(false);
+            }
+            if (nextStage > 3)
+            {
+                childrens[1].gameObject.SetActive(false);
+                childrens[2].gameObject.SetActive(true);
+                for (int j = 4 * (nextStage-1); j < 4 * (nextStage); j++)
+                {
+                    maskParent.transform.GetChild(j).gameObject.SetActive(true);
 
-    //        yield return null; yield return null; yield return null;
-    //        childrens[1].gameObject.SetActive(false);
-    //        for (int j = 4 * (nextStage - 1); j < 4 * (nextStage); j++)
-    //        {
-    //            maskParent.transform.GetChild(j).gameObject.SetActive(false);
-    //        }
-    //        if (nextStage > 3)
-    //        {
-    //            childrens[1].gameObject.SetActive(false);
-    //            childrens[2].gameObject.SetActive(true);
-    //            for (int j = 4 * (nextStage-1); j < 4 * (nextStage); j++)
-    //            {
-    //                maskParent.transform.GetChild(j).gameObject.SetActive(true);
+                }
+                yield return new WaitForSeconds(0.1f);
+                childrens[2].gameObject.SetActive(false);
+                for (int j = 4 * (nextStage - 1); j < 4 * (nextStage); j++)
+                {
+                    maskParent.transform.GetChild(j).gameObject.SetActive(false);
 
-    //            }
-    //            yield return new WaitForSeconds(0.1f);
-    //            childrens[2].gameObject.SetActive(false);
-    //            for (int j = 4 * (nextStage - 1); j < 4 * (nextStage); j++)
-    //            {
-    //                maskParent.transform.GetChild(j).gameObject.SetActive(false);
-
-    //            }
-    //        }
+                }
+            }
 
 
 
 
-    //        for (int j = 0; j < index; j++)
-    //        {
-    //            childrens[j].gameObject.SetActive(false);
-    //        }
+            for (int j = 0; j < index; j++)
+            {
+                childrens[j].gameObject.SetActive(false);
+            }
 
-    //        for (int j = 0; j < 4 * (nextStage - 1); j++)
-    //        {
-    //            maskParent.transform.GetChild(j).gameObject.SetActive(false);
+            for (int j = 0; j < 4 * (nextStage - 1); j++)
+            {
+                maskParent.transform.GetChild(j).gameObject.SetActive(false);
                 
-    //        }
-    //        for (int j = 0; j < index; j++)
-    //        {
-    //            childrens[j].gameObject.SetActive(false);
-    //        }
+            }
+            for (int j = 0; j < index; j++)
+            {
+                childrens[j].gameObject.SetActive(false);
+            }
 
-    //        yield return new WaitForSeconds(3f);
-    //    }
-    //}
+            yield return new WaitForSeconds(3f);
+        }
+    }
 
     // Update is called once per frame
     void Update()
