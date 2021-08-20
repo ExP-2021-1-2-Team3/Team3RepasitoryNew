@@ -4,14 +4,19 @@ using UnityEngine;
 
 public class Finish : MonoBehaviour
 {
-    private void OnTriggerEnter2D(Collider2D collision)
+    public bool playonce;
+    void Start() 
     {
-        //�����ڵ�~
-        if (Score.ItemAmount == 4){
+        playonce = false;
+    }
+    void Update()
+    {
+        if ((Score.ItemAmount == 4) && (playonce == false))
+        {
             LoadManagerSH.singleTon.GameEnd();
             ItemSound.FinishSound();
+            playonce = true;
         }
-
-
     }
+    
 }
