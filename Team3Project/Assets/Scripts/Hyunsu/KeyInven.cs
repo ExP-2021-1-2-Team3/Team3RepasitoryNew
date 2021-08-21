@@ -16,7 +16,6 @@ public class KeyInven : MonoBehaviour
     {
         if (Key.isKeyFound)
         {
-            keyinven.SetActive(true);
             if (Key.isKeyUsed)
             {
                 keyinven.SetActive(false);

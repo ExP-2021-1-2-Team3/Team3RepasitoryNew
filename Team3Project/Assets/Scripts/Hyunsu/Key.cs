@@ -12,7 +12,7 @@ public class Key : MonoBehaviour
     public Camera cam;
     public static bool isKeyFound = false;
     public static bool isKeyUsed = false;
-    [SerializeField] AudioSource keySound;
+    [SerializeField] public AudioSource keySound;
 
     // Start is called before the first frame update
     void Start()
@@ -39,12 +39,9 @@ public class Key : MonoBehaviour
 
         if (touchedObj == aimObj)   //  선택된 오브젝트 = 열쇠 일 경우 열쇠 줌인 화면 출력
         {
-            keySound.Play();
             keyJoomin.SetActive(true);
             CloseBtn.isOpenedUI = true;
             touchedObj = null;
-            isKeyFound = true;
-            
         }
         if (isKeyFound) //  열쇠를 찾았을 경우 열쇠 스프라이트 제거
         {

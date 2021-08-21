@@ -20,6 +20,10 @@ public class CloseBtn : MonoBehaviour
     public GameObject memoBtn;
     public GameObject memoJoomIn;
     public GameObject albumBtn;
+
+    public GameObject keyInven;
+    public Key key;
+
     public static bool isOpenedUI = false;
 
     public void OnClickCloseBookBtn()   //  NÀûÈù Ã¥ ÁÜÀÎ È­¸é ´Ý±â
@@ -30,6 +34,14 @@ public class CloseBtn : MonoBehaviour
     public void OnClickCloseKeyBtn()    // ¿­¼è ÁÜÀÎ È­¸é ´Ý±â
     {
         keybuttonObj.SetActive(false);
+        isOpenedUI = false;
+    }
+    public void onClickKey()    //  ¿­¼è Å¬¸¯½Ã ¿­¼è È¹µæ
+    {
+        keybuttonObj.SetActive(false);
+        keyInven.SetActive(true);
+        key.keySound.Play();
+        Key.isKeyFound = true;
         isOpenedUI = false;
     }
     public void OnClickClosePosterBtn() //  Æ÷½ºÅÍ ÁÜÀÎ È­¸é ´Ý±â
