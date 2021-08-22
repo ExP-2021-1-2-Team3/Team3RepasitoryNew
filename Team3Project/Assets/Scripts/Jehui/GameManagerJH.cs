@@ -26,14 +26,19 @@ public class GameManagerJH : MonoBehaviour
     //private float StunTime = 15f;                    //마비까지 걸리는 시간
     private float RootedTime = 3f;                   //마비가 진행되는 최대 시간. 시간안에 못 풀시 하트 한칸 감소.
     public float blinkTime = 0f;
+    public float shiverTime = 0f;
 
     public int ranint;
     public bool isInRootedCoroutine;
     public bool isDoorActive = false;
+    public bool didTeleported = false;
     public bool isovercame;                         //'스턴을 풀 조건'(버튼 연타 조건)을 충족했는지에 대한 bool형 변수
     public bool isGameClear = false;
     //public Text StunTimeText;
     public Text RootedTimeText;
+    public Text leftRightTouchInd;
+    public Text jumpTouchInd;
+    public Text interactTouchInd;
 
     public GameObject Player;                       //플레이어
     public GameObject Alarm;
@@ -42,6 +47,7 @@ public class GameManagerJH : MonoBehaviour
     public GameObject anotherfloorPlatform;
     public GameObject firstfloorThorn;
     public GameObject anotherfirstfloorThorn;
+    public GameObject scissorsSet;
 
     public GameObject lever1, lever2, lever3, lever4;                       //웅크린자 1, 2, 3, 4
     public GameObject lever1r, lever2r, lever3r, lever4r;                   //웅크린자 변형.
@@ -75,8 +81,10 @@ public class GameManagerJH : MonoBehaviour
     }
     void Update()
     {
-        blinkWhileRooted();  
-        
+        blinkWhileRooted();
+        shiverWhileRooted();
+        makeScissorsActive();
+
         dontCheat();
         felloff();
         destroyStacks();
@@ -130,6 +138,10 @@ public class GameManagerJH : MonoBehaviour
                 JumpBtn.GetComponent<Image>().color = new Color(255 / 255f, 255 / 255f, 255 / 255f, 100 / 255f);
                 InteractionBtn.GetComponent<Image>().color = new Color(255 / 255f, 255 / 255f, 255 / 255f, 100 / 255f); //rooted 종료 후, 버튼의 알파값 원래대로 초기화
 
+                leftRightTouchInd.color = new Color(255 / 255f, 0 / 255f, 0 / 255f, 0 / 255f);
+                jumpTouchInd.color = new Color(255 / 255f, 0 / 255f, 0 / 255f, 0 / 255f);
+                interactTouchInd.color = new Color(255 / 255f, 0 / 255f, 0 / 255f, 0 / 255f);
+
                 if (isovercame)                                              //탈출 조건을 만족할 시
                 {
                     Debug.Log("rooted.overcame");
@@ -168,6 +180,10 @@ public class GameManagerJH : MonoBehaviour
                     JumpBtn.GetComponent<Image>().color = new Color(255 / 255f, 255 / 255f, 255 / 255f, 100 / 255f);
                     InteractionBtn.GetComponent<Image>().color = new Color(255 / 255f, 255 / 255f, 255 / 255f, 100 / 255f);
 
+                    leftRightTouchInd.color = new Color(255 / 255f, 0 / 255f, 0 / 255f, 0 / 255f);
+                    jumpTouchInd.color = new Color(255 / 255f, 0 / 255f, 0 / 255f, 0 / 255f);
+                    interactTouchInd.color = new Color(255 / 255f, 0 / 255f, 0 / 255f, 0 / 255f);
+
                     Debug.Log("rooted.overcame");
                     Btnclick.RightBtnClickCounter = 0;                       //초기화해주기
                     Btnclick.LeftBtnClickCounter = 0;
@@ -190,21 +206,24 @@ public class GameManagerJH : MonoBehaviour
 
         switch (ranint)
         {
-            case 1:               
+            case 1:
+                leftRightTouchInd.color = new Color(255 / 255f, 0 / 255f, 0 / 255f, 255 / 255f);
                 if (Btnclick.LeftBtnClickCounter + Btnclick.RightBtnClickCounter >= 10)
                     isovercame = true;
                 else
                     isovercame = false;
                 break;
  
-            case 2:               
+            case 2:
+                jumpTouchInd.color = new Color(255 / 255f, 0 / 255f, 0 / 255f, 255 / 255f);
                 if (Btnclick.JumpBtnClickCounter >= 10)
                     isovercame = true;
                 else
                     isovercame = false;
                 break;
  
-            case 3:              
+            case 3:
+                interactTouchInd.color = new Color(255 / 255f, 0 / 255f, 0 / 255f, 255 / 255f);
                 if (Btnclick.InteractionBtnClickCounter >= 10)
                     isovercame = true;
                 else
@@ -220,27 +239,33 @@ public class GameManagerJH : MonoBehaviour
     public void respawn()
     {
         fadecontrol.Fade();                             //화면 페이드아웃 -> 페이드인
-        Player.transform.position = respawnPosition;    //Player 위치 초기화
-        //HPManager.hp -= 1;
-        
-        lever1r.SetActive(false);
-        lever1.SetActive(true);
-        lever2r.SetActive(false);
-        lever2.SetActive(true);
+
+        if (didTeleported)
+        {
+            Player.transform.position = firstFloorPosition;                                          
+        }
+        else
+        {
+            Player.transform.position = respawnPosition;    //Player 위치 초기화
+
+            lever1r.SetActive(false);
+            lever1.SetActive(true);
+            lever2r.SetActive(false);
+            lever2.SetActive(true);
+ 
+            isDoorActive = false;                           //문 상태 초기화
+        }
+
         lever3r.SetActive(false);
         lever3.SetActive(true);
         lever4r.SetActive(false);
-        lever4.SetActive(true);                        //lever1,2,3,4 상태 초기화
-        isDoorActive = false;                           //문 상태 초기화
+        lever4.SetActive(true);
         Trapdoor.SetActive(true);                       //트랩도어 상태 초기화
         firstfloorPlatform.SetActive(true);
         firstfloorThorn.SetActive(true);
         anotherfloorPlatform.SetActive(false);
         anotherfirstfloorThorn.SetActive(false);
-        //올 초기화. 필요할까?
 
-        //StunTime = 16.5f;                                 //화면 꺼지는 시간 고려, 15초로 조정
-        //Debug.Log("stuntime 초기화.");
         RootedTime = 3f;
         Debug.Log("rootedtime 초기화.");
         Debug.Log("상태가 모두 초기화되었습니다.");
@@ -251,7 +276,6 @@ public class GameManagerJH : MonoBehaviour
         if (isInRootedCoroutine)
         {
             
-
             if (blinkTime <= 0.2f)
             {
                 if (ranint == 1)
@@ -291,6 +315,39 @@ public class GameManagerJH : MonoBehaviour
 
             blinkTime += Time.deltaTime;
         }
+    }
+
+    public void shiverWhileRooted()
+    {
+        if (isInRootedCoroutine)
+        {
+            if (shiverTime < 0.1f)
+            {
+                Player.transform.position = new Vector2(Player.transform.position.x - 0.1f, Player.transform.position.y);
+                scissorsSet.transform.position = new Vector2(scissorsSet.transform.position.x + 0.05f, scissorsSet.transform.position.y);
+            }
+            else if(shiverTime >= 0.1f && shiverTime < 0.2f)
+            {
+                Player.transform.position = new Vector2(Player.transform.position.x + 0.05f, Player.transform.position.y);
+                scissorsSet.transform.position = new Vector2(scissorsSet.transform.position.x - 0.05f, scissorsSet.transform.position.y);
+            }
+
+            if (shiverTime >= 0.2f)
+                shiverTime = 0f;
+
+            shiverTime += Time.deltaTime;
+        }       
+        
+    }
+
+    public void makeScissorsActive()
+    {
+        if (isInRootedCoroutine)
+        {
+            scissorsSet.SetActive(true);
+        }
+        else
+            scissorsSet.SetActive(false);
     }
 
     public void felloff() //맨 밑의 아래로 떨어졌을 때.(맵 이탈)

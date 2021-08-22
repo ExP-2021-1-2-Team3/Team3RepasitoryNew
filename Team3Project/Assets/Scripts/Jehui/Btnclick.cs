@@ -131,6 +131,7 @@ public class Btnclick : MonoBehaviour
                     if (game.touchedDoor)
                     {                                                                //웅크린자 1, 2와 상호작용 성공한 후 -> 2층 문에 닿아있는 상태이면
                         player.transform.position = game.firstFloorPosition;         //플레이어의 위치를 1층 문이 있는 곳으로 옮긴다.
+                        game.didTeleported = true;
                         canPlayIntSound = true;
                     }
                 }
