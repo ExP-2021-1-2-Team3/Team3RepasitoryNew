@@ -24,6 +24,9 @@ public class GameManagerJH : MonoBehaviour
     //가시에 닿을 경우 리스폰. 처음 장소(2.15,-8.38,0)에서 부활.-> player.position=Vector3(2.15,-8.38,0)
 
     //private float StunTime = 15f;                    //마비까지 걸리는 시간
+
+    //Systems
+    public Camera mainCamera;
     private float RootedTime = 3f;                   //마비가 진행되는 최대 시간. 시간안에 못 풀시 하트 한칸 감소.
     public float blinkTime = 0f;
     public float shiverTime = 0f;
@@ -35,12 +38,16 @@ public class GameManagerJH : MonoBehaviour
     public bool isovercame;                         //'스턴을 풀 조건'(버튼 연타 조건)을 충족했는지에 대한 bool형 변수
     public bool isGameClear = false;
     //public Text StunTimeText;
-    public Text RootedTimeText;
-    public Text leftRightTouchInd;
-    public Text jumpTouchInd;
-    public Text interactTouchInd;
+    //public Text RootedTimeText;
+    public Image timeBar;
+    public Image emptyTimeBar;
+    public Image leftRightTouchInd;
+    public Image jumpTouchInd;
+    public Image interactTouchInd;
 
     public GameObject Player;                       //플레이어
+
+    //Environments
     public GameObject Alarm;
     public GameObject Trapdoor;
     public GameObject firstfloorPlatform;
@@ -49,6 +56,7 @@ public class GameManagerJH : MonoBehaviour
     public GameObject anotherfirstfloorThorn;
     public GameObject scissorsSet;
 
+    //Levers
     public GameObject lever1, lever2, lever3, lever4;                       //웅크린자 1, 2, 3, 4
     public GameObject lever1r, lever2r, lever3r, lever4r;                   //웅크린자 변형.
 
@@ -117,30 +125,40 @@ public class GameManagerJH : MonoBehaviour
 
     public IEnumerator RootedTimer() //스턴시키는 시간 잰다.
     {
+        mainCamera.transform.parent = null;
+        scissorsSet.transform.parent = null;
         isInRootedCoroutine = true;                                  //버튼 카운터를 활성화하기 위한 조건.
-        RootedTimeText.color = new Color(255 / 255f, 0 / 255f, 0 / 255f, 255 / 255f);
+        //RootedTimeText.color = new Color(255 / 255f, 0 / 255f, 0 / 255f, 255 / 255f);
+        timeBar.GetComponent<Image>().color = new Color(255 / 255f, 255 / 255f, 255 / 255f, 255 / 255f);
+        emptyTimeBar.GetComponent<Image>().color = new Color(255 / 255f, 255 / 255f, 255 / 255f, 255 / 255f);
         rigid.velocity = Vector2.zero;                               //움직임 불가.
 
         ranint = Random.Range(1, 4);                                               //타이머 시작 이후 밑에 숨어있던 타이머가 게이머에게 보임.
         while (true)
         {
-            RootedTime -= Time.deltaTime;                                
+            RootedTime -= Time.deltaTime;
+            timeBar.fillAmount = RootedTime / 3f;
             Debug.Log("제한 시간을 출력합니다: " + (int)RootedTime);
-            RootedTimeText.text = "" + (int)RootedTime;
+            //RootedTimeText.text = "" + (int)RootedTime;
 
             didOvercame(ranint);
 
             if (RootedTime <= 0)
             {
-                RootedTimeText.color = new Color(255 / 255f, 0 / 255f, 0 / 255f, 0 / 255f);
+                mainCamera.transform.parent = Player.transform;
+                scissorsSet.transform.parent = Player.transform;
+                //RootedTimeText.color = new Color(255 / 255f, 0 / 255f, 0 / 255f, 0 / 255f);
+                timeBar.GetComponent<Image>().color = new Color(255 / 255f, 255 / 255f, 255 / 255f, 0 / 255f);
+                emptyTimeBar.GetComponent<Image>().color = new Color(255 / 255f, 255 / 255f, 255 / 255f, 0 / 255f);
+
                 RightBtn.GetComponent<Image>().color = new Color(255 / 255f, 255 / 255f, 255 / 255f, 100 / 255f);
                 LeftBtn.GetComponent<Image>().color = new Color(255 / 255f, 255 / 255f, 255 / 255f, 100 / 255f);
                 JumpBtn.GetComponent<Image>().color = new Color(255 / 255f, 255 / 255f, 255 / 255f, 100 / 255f);
                 InteractionBtn.GetComponent<Image>().color = new Color(255 / 255f, 255 / 255f, 255 / 255f, 100 / 255f); //rooted 종료 후, 버튼의 알파값 원래대로 초기화
 
-                leftRightTouchInd.color = new Color(255 / 255f, 0 / 255f, 0 / 255f, 0 / 255f);
-                jumpTouchInd.color = new Color(255 / 255f, 0 / 255f, 0 / 255f, 0 / 255f);
-                interactTouchInd.color = new Color(255 / 255f, 0 / 255f, 0 / 255f, 0 / 255f);
+                leftRightTouchInd.color = new Color(255 / 255f, 255 / 255f, 255 / 255f, 0 / 255f);
+                jumpTouchInd.color = new Color(255 / 255f, 255 / 255f, 255 / 255f, 0 / 255f);
+                interactTouchInd.color = new Color(255 / 255f, 255 / 255f, 255 / 255f, 0 / 255f);
 
                 if (isovercame)                                              //탈출 조건을 만족할 시
                 {
@@ -174,15 +192,20 @@ public class GameManagerJH : MonoBehaviour
                 //yield return new WaitForSeconds(0.5f);                                
                 if (isovercame)                                             //3초가 되지 않아도, overcame했을 경우
                 {
-                    RootedTimeText.color = new Color(255 / 255f, 0 / 255f, 0 / 255f, 0 / 255f);
+                    mainCamera.transform.parent = Player.transform;
+                    scissorsSet.transform.parent = Player.transform;
+                    //RootedTimeText.color = new Color(255 / 255f, 0 / 255f, 0 / 255f, 0 / 255f);
+                    timeBar.GetComponent<Image>().color = new Color(255 / 255f, 255 / 255f, 255 / 255f, 0 / 255f);
+                    emptyTimeBar.GetComponent<Image>().color = new Color(255 / 255f, 255 / 255f, 255 / 255f, 0 / 255f);
+
                     RightBtn.GetComponent<Image>().color = new Color(255 / 255f, 255 / 255f, 255 / 255f, 100 / 255f);
                     LeftBtn.GetComponent<Image>().color = new Color(255 / 255f, 255 / 255f, 255 / 255f, 100 / 255f);
                     JumpBtn.GetComponent<Image>().color = new Color(255 / 255f, 255 / 255f, 255 / 255f, 100 / 255f);
                     InteractionBtn.GetComponent<Image>().color = new Color(255 / 255f, 255 / 255f, 255 / 255f, 100 / 255f);
 
-                    leftRightTouchInd.color = new Color(255 / 255f, 0 / 255f, 0 / 255f, 0 / 255f);
-                    jumpTouchInd.color = new Color(255 / 255f, 0 / 255f, 0 / 255f, 0 / 255f);
-                    interactTouchInd.color = new Color(255 / 255f, 0 / 255f, 0 / 255f, 0 / 255f);
+                    leftRightTouchInd.color = new Color(255 / 255f, 255 / 255f, 255 / 255f, 0 / 255f);
+                    jumpTouchInd.color = new Color(255 / 255f, 255 / 255f, 255 / 255f, 0 / 255f);
+                    interactTouchInd.color = new Color(255 / 255f, 255 / 255f, 255 / 255f, 0 / 255f);
 
                     Debug.Log("rooted.overcame");
                     Btnclick.RightBtnClickCounter = 0;                       //초기화해주기
@@ -207,7 +230,7 @@ public class GameManagerJH : MonoBehaviour
         switch (ranint)
         {
             case 1:
-                leftRightTouchInd.color = new Color(255 / 255f, 0 / 255f, 0 / 255f, 255 / 255f);
+                leftRightTouchInd.color = new Color(255 / 255f, 255 / 255f, 255 / 255f, 255 / 255f);
                 if (Btnclick.LeftBtnClickCounter + Btnclick.RightBtnClickCounter >= 10)
                     isovercame = true;
                 else
@@ -215,7 +238,7 @@ public class GameManagerJH : MonoBehaviour
                 break;
  
             case 2:
-                jumpTouchInd.color = new Color(255 / 255f, 0 / 255f, 0 / 255f, 255 / 255f);
+                jumpTouchInd.color = new Color(255 / 255f, 255 / 255f, 255 / 255f, 255 / 255f);
                 if (Btnclick.JumpBtnClickCounter >= 10)
                     isovercame = true;
                 else
@@ -223,7 +246,7 @@ public class GameManagerJH : MonoBehaviour
                 break;
  
             case 3:
-                interactTouchInd.color = new Color(255 / 255f, 0 / 255f, 0 / 255f, 255 / 255f);
+                interactTouchInd.color = new Color(255 / 255f, 255 / 255f, 255 / 255f, 255 / 255f);
                 if (Btnclick.InteractionBtnClickCounter >= 10)
                     isovercame = true;
                 else
@@ -321,18 +344,18 @@ public class GameManagerJH : MonoBehaviour
     {
         if (isInRootedCoroutine)
         {
-            if (shiverTime < 0.1f)
+            if (shiverTime < 0.025f)
             {
-                Player.transform.position = new Vector2(Player.transform.position.x - 0.1f, Player.transform.position.y);
-                scissorsSet.transform.position = new Vector2(scissorsSet.transform.position.x + 0.05f, scissorsSet.transform.position.y);
+                Player.transform.position = new Vector2(Player.transform.position.x - 0.05f, Player.transform.position.y);
+                //scissorsSet.transform.position = new Vector2(scissorsSet.transform.position.x + 0.05f, scissorsSet.transform.position.y);
             }
-            else if(shiverTime >= 0.1f && shiverTime < 0.2f)
+            else if(shiverTime >= 0.025f && shiverTime < 0.05f)
             {
                 Player.transform.position = new Vector2(Player.transform.position.x + 0.05f, Player.transform.position.y);
-                scissorsSet.transform.position = new Vector2(scissorsSet.transform.position.x - 0.05f, scissorsSet.transform.position.y);
+                //scissorsSet.transform.position = new Vector2(scissorsSet.transform.position.x - 0.05f, scissorsSet.transform.position.y);
             }
 
-            if (shiverTime >= 0.2f)
+            if (shiverTime >= 0.05f)
                 shiverTime = 0f;
 
             shiverTime += Time.deltaTime;
