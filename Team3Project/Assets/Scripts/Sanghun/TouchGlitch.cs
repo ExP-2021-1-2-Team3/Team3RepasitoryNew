@@ -20,6 +20,7 @@ public class TouchGlitch : MonoBehaviour
     public GameObject normalBG;
     public GameObject[] animations;
     AudioSource audioSource;
+    public AudioSource birdSource;
     GameObject postProcessObject;
 
     LensDistortion lensDistortion;
@@ -149,6 +150,7 @@ public class TouchGlitch : MonoBehaviour
         yield return new WaitForSeconds(4f);
         fadeObject.SetActive(false);
         float timer = 0;
+        birdSource.Play();
         dawnObject[0].SetActive(true);
         clockObject.gameObject.SetActive(true);
         while (timer < 1)

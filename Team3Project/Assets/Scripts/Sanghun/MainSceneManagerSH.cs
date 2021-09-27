@@ -46,6 +46,16 @@ public class MainSceneManagerSH : MonoBehaviour
     [SerializeField]
     Sprite[] downFaceSprite;
 
+    [SerializeField]
+    AudioSource naggingSource;
+    [SerializeField]
+    AudioLowPassFilter naggingFilter;
+    [SerializeField]
+    AudioSource lightningSource;
+    [SerializeField]
+    AudioLowPassFilter lightningFilter;
+    [SerializeField]
+    AudioSource mainBGMSource;
 
 
 
@@ -58,7 +68,10 @@ public class MainSceneManagerSH : MonoBehaviour
             glitchTitle.sortingOrder = 4;
         }
         MakeGlitch();
+        //번개 코루틴
         StartCoroutine(LightningCoroutine());
+        //뒤척 코루틴
+        StartCoroutine(NaggingCoroutine());
         normalBG.sprite = normalBGSprite[1];
         upFace.gameObject.SetActive(false);
     }
@@ -139,10 +152,14 @@ public class MainSceneManagerSH : MonoBehaviour
         }
         if(nextStage == 1 || nextStage == 2)
         {
+            mainBGMSource.Play();
             return;
         }
         if (nextStage == 3)
         {
+            mainBGMSource.Stop();
+            lightningFilter.cutoffFrequency = 200;
+            naggingFilter.cutoffFrequency = 200;
             activeGlitchArray = new GameObject[3];
             activeGlitchArray[0] = glitchAnimationArray[2];
             activeGlitchArray[1] = glitchAnimationArray[3];
@@ -150,6 +167,9 @@ public class MainSceneManagerSH : MonoBehaviour
         }
         if (nextStage == 4)
         {
+            mainBGMSource.Stop();
+            lightningFilter.cutoffFrequency = 200;
+            naggingFilter.cutoffFrequency = 200;
             activeGlitchArray = new GameObject[2];
             activeGlitchArray[0] = glitchAnimationArray[5];
             activeGlitchArray[1] = glitchAnimationArray[6];
@@ -158,6 +178,9 @@ public class MainSceneManagerSH : MonoBehaviour
         }
         if(nextStage == 5)
         {
+            mainBGMSource.Stop();
+            lightningFilter.cutoffFrequency = 200;
+            naggingFilter.cutoffFrequency = 200;
             activeGlitchArray = new GameObject[2];
             activeGlitchArray[0] = glitchAnimationArray[0];
             activeGlitchArray[1] = glitchAnimationArray[1];
@@ -178,8 +201,12 @@ public class MainSceneManagerSH : MonoBehaviour
     {
         while (true)
         {
+
             lightningObject.SetActive(false);
+            //꺼주고 대기
             yield return new WaitForSeconds(Random.Range(5f, 10f));
+            //번개 소리 쾅!
+            lightningSource.Play();
             lightningObject.SetActive(true);
             yield return new WaitForSeconds(0.1f);
             lightningObject.SetActive(false);
@@ -190,6 +217,16 @@ public class MainSceneManagerSH : MonoBehaviour
             yield return new WaitForSeconds(0.1f);
         }
         
+    }
+
+    IEnumerator NaggingCoroutine()
+    {
+        while (true)
+        {
+            //이거만봐도 뭔지알겠네 ㅋㅋ
+            yield return new WaitForSeconds(3f);
+            naggingSource.Play();
+        }
     }
 
     bool stopGlitch = false;
@@ -206,112 +243,7 @@ public class MainSceneManagerSH : MonoBehaviour
         }
     }
 
-    //IEnumerator GlitchCoroutine(int index)
-    //{
-    //    SpriteRenderer[] childrens = new SpriteRenderer[3];
-    //    Debug.Log("여러번");
-    //    yield return new WaitForSeconds(3f);
-    //    for (int i = 0; i < index; i++)
-    //    {
-    //        childrens[i] = glitchArray[i].GetComponent<SpriteRenderer>();
-    //        //childrens[i].gameObject.SetActive(true);
-    //    }
-    //    while (true)
-    //    {
 
-    //        //for (int j = 0; j < index; j++)
-    //        //{
-    //        //    childrens[j].gameObject.SetActive(true);
-    //        //    //childrens[j].color = new Color(1, 1, 1, Random.Range(0, 1f));
-    //        //}
-    //        //for (int i = 0; i < index; i++)
-    //        //{
-    //        //    childrens[i].color = new Color(1, 1, 1, Random.Range(0, 1f));
-    //        //    for (int j = 0; j < 4 * (nextStage - 1); j++)
-    //        //    {
-    //        //        if (Random.Range(0, 2) == 0)
-    //        //        {
-    //        //            continue;
-    //        //        }
-    //        //        maskParent.transform.GetChild(j).gameObject.SetActive(true);
-    //        //    }
-    //        //    yield return new WaitForSeconds(5f);
-    //        //    for (int j = 0; j < 4 * (nextStage - 1); j++)
-    //        //    {
-    //        //        maskParent.transform.GetChild(j).gameObject.SetActive(false);
-    //        //    }
-    //        //    for(int j = 0; j < index; j++)
-    //        //    {
-    //        //        childrens[j].gameObject.SetActive(false);
-    //        //    }
-    //        //}
-
-    //        for (int j = 0; j < 4 * (nextStage - 1); j++)
-    //        {
-    //            maskParent.transform.GetChild(j).gameObject.SetActive(true);
-    //        }
-    //        childrens[0].gameObject.SetActive(true);
-    //         yield return null; yield return null; yield return null;
-    //        childrens[0].gameObject.SetActive(false);
-    //        childrens[1].gameObject.SetActive(true);
-    //        for (int j = 0; j < 4 * (nextStage - 1); j++)
-    //        {
-    //            maskParent.transform.GetChild(j).gameObject.SetActive(false);
-    //        }
-
-    //        for (int j = 4 * (nextStage - 1); j < 4 * (nextStage); j++)
-    //        {
-    //            maskParent.transform.GetChild(j).gameObject.SetActive(true);
-    //        }
-
-    //        yield return null; yield return null; yield return null;
-    //        childrens[1].gameObject.SetActive(false);
-    //        for (int j = 4 * (nextStage - 1); j < 4 * (nextStage); j++)
-    //        {
-    //            maskParent.transform.GetChild(j).gameObject.SetActive(false);
-    //        }
-    //        if (nextStage > 3)
-    //        {
-    //            childrens[1].gameObject.SetActive(false);
-    //            childrens[2].gameObject.SetActive(true);
-    //            for (int j = 4 * (nextStage-1); j < 4 * (nextStage); j++)
-    //            {
-    //                maskParent.transform.GetChild(j).gameObject.SetActive(true);
-
-    //            }
-    //            yield return new WaitForSeconds(0.1f);
-    //            childrens[2].gameObject.SetActive(false);
-    //            for (int j = 4 * (nextStage - 1); j < 4 * (nextStage); j++)
-    //            {
-    //                maskParent.transform.GetChild(j).gameObject.SetActive(false);
-
-    //            }
-    //        }
-
-
-
-
-    //        for (int j = 0; j < index; j++)
-    //        {
-    //            childrens[j].gameObject.SetActive(false);
-    //        }
-
-    //        for (int j = 0; j < 4 * (nextStage - 1); j++)
-    //        {
-    //            maskParent.transform.GetChild(j).gameObject.SetActive(false);
-                
-    //        }
-    //        for (int j = 0; j < index; j++)
-    //        {
-    //            childrens[j].gameObject.SetActive(false);
-    //        }
-
-    //        yield return new WaitForSeconds(3f);
-    //    }
-    //}
-    
-
-    
 
     // Update is called once per frame
     void Update()
