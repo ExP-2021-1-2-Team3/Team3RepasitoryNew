@@ -1,4 +1,4 @@
-# 홍익대학교 ExP Make팀 2021 2학기 프로젝트 HomePhobia
+# 홍익대학교 ExP Make팀 2021 1학기 프로젝트 Nightmare
 Unity / 2D / Android / 게임모음 / **미출시**
 
 # 팀구성 
